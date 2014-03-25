@@ -1,0 +1,53 @@
+When {
+   Me.Cycle,
+   Modulus 3000,
+   Not
+} Do {
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn
+}
+
+When {
+   Me.Pain
+} Do {
+   Random 3,
+   IfThen  {
+      Print "Ouch! Save me Zoe!",
+      Move
+   } Else {
+      Print "Fight",
+      Bite
+   }
+}
+
+When {
+   Me.FeelSomething And { { Not It.IsAlive } Or { It.Species Equals 1 } }
+} Do {
+   Bite
+}
+
+When {
+   Me.SeeSomething And { { Not It.IsAlive } Or { It.Species Equals 1 } }
+} Do {
+   Turn Me.Toward,
+   Move
+}
+
+When {
+   Me.SeeSomething And Not It.IsSameSpecies And Me.Size LessThan It.Size
+} Do {
+   Turn Me.Away,
+   Move
+}
+
+Do {
+   Move
+}

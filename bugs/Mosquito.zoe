@@ -1,0 +1,17 @@
+When {
+   Me.FeelSomething And Not It.IsFamily
+} Do {
+   Bite
+}
+
+When {
+   Me.SeeSomething And Not It.IsFamily
+} Do {
+   Turn,
+   Move
+}
+
+Do {
+   Move,
+   Split
+}

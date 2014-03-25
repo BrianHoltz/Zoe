@@ -1,0 +1,135 @@
+When {
+   Me.Cycle,
+   Modulus 10000,
+   Not
+} Do {
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn, 
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn, 
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn, 
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn, 
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn, 
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn, 
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn, 
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn, 
+   Spawn,
+   Spawn
+}
+
+When {
+   Me.FeelSomething And Not It.IsAlive
+} Do {
+   Bite
+   Mood 7
+}
+
+When {
+   Me.FeelSomething And Not It.IsSameSpecies
+} Do {
+   Bite
+   Mood 10
+}
+When {
+   Me.SeeSomething And Not It.IsSameSpecies 
+} Do {
+   Turn,
+   Move
+   Mood 6
+}
+
+When {
+   Me.SeeSomething And Not It.IsAlive
+} Do {
+    Turn,
+    Move
+    Mood 5
+}
+
+When {
+   Me.AncestralLocation Minus Me.Location
+   GreaterThan 300
+} Do {
+   Turn Me.AncestralLocation,
+   Move,
+   Move,
+   Move
+   Mood 4
+}
+
+When {
+   {
+      Me.FeelSomething And It.IsSameSpecies
+   } And {
+      It.Mood GreaterThan Me.Mood
+   }
+} Do {
+   Turn It.Heading,
+   Move
+}
+
+Do {
+   Move
+}

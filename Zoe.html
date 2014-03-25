@@ -1,0 +1,611 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta content="text/html; charset=windows-1252"
+      http-equiv="Content-Type">
+    <title>Zoe</title>
+  </head>
+  <body>
+    <h2>To Do</h2>
+    <ul>
+      <li>tournament mode: n bugs per species, fair start</li>
+      <li>Bug or species can have inherent speed<br>
+      </li>
+      <li>Shade from overlapping bugs, younger shades older</li>
+      <li>Metabolism tax (and movement tax?) proportional to diameter^3</li>
+      <li>Background bug density controls inflow/outflow of bugs?</li>
+      <li>Why does the demo world remember previous pageview's bug
+        counts?<br>
+      </li>
+      <li>option to shrink vs. die<br>
+      </li>
+      <li>
+        <meta http-equiv="content-type" content="text/html;
+          charset=windows-1252">
+        Add a tail to show age of species</li>
+      <li>Add a tail to show # of ancestor individuals/species</li>
+      <li>Bug can set its memory of birth/ancestral location<br>
+      </li>
+      <li>Brownian momentum vector</li>
+      <li>Color all randomly-created species green</li>
+      <li>Launch as Java app from web page: Java Web Start<br>
+      </li>
+      <li>Load properties from inside web page</li>
+      <ul>
+        <li class="alt"><span><span>InputStream&nbsp;is&nbsp;=&nbsp;</span><span
+              class="keyword">this</span><span>.getClass().getResourceAsStream(</span><span
+              class="string">"/data/file.txt"</span><span>);&nbsp; </span></span></li>
+      </ul>
+      <li>select next bug in stack<br>
+      </li>
+      <li>make Operator an interface, use extensible enum<br>
+      </li>
+      <li>species stats/leaderboard</li>
+      <ul>
+        <li>living members</li>
+        <li>living members+descendents</li>
+        <li>living mutants<br>
+        </li>
+        <li>energy</li>
+        <li>kills<br>
+        </li>
+        <li>avg age, size, strength</li>
+        <li>avg # children</li>
+        <li>primogenitor</li>
+        <li>mutation depth</li>
+      </ul>
+      <li>Library of fittest genes</li>
+      <li>gene for photosynthesizing if you're hungry<br>
+      </li>
+      <li>aging via random mis-execution</li>
+      <li>color stomach contents, toggle this view on/off</li>
+      <li>Barf</li>
+      <li>multi-turn pain</li>
+      <li>night<br>
+      </li>
+      <li>Move N</li>
+      <li>dump species stats periodically</li>
+      <li>gaming<br>
+      </li>
+      <ul>
+        <li>paste bugs/joules</li>
+        <li>write bug to play tag</li>
+        <li>naming bugs</li>
+        <li>sounds</li>
+      </ul>
+      <li>commands<br>
+      </li>
+      <ul>
+        <li>extinct/die species</li>
+        <ul>
+          <li>highlight</li>
+          <li>children</li>
+          <li>species</li>
+          <li>descendents<br>
+          </li>
+        </ul>
+        <ul>
+          <li>select bug</li>
+          <li>oldest</li>
+          <li>most kills<br>
+          </li>
+          <li>by ID<br>
+          </li>
+          <li>highest generation</li>
+          <li>most children</li>
+          <li>most descendents</li>
+          <li>parent<br>
+          </li>
+        </ul>
+        <li>"Select leader"?</li>
+      </ul>
+      <li>algae/sunlight/temperature gradients</li>
+      <li>Action VM reuse When VM to reuse its stack</li>
+      <li>programming<br>
+      </li>
+      <ul>
+        <li>Stack.0, Heap.Key</li>
+      </ul>
+      <ul>
+        <li>labels only on StatementList ( ExpressionList )</li>
+        <li>Call looks for in-gene label, then asks host to look it up</li>
+        <li>GeneCallStack instead of a PheneList, allowing re-entrant
+          calls to Genes</li>
+      </ul>
+      <li>science<br>
+      </li>
+      <ul>
+        <li>set sampling frequency, to run experiments without GUI</li>
+        <li>save/reload world</li>
+        <li>window onto larger world</li>
+        <li>photosynthesis sharing in the same stack</li>
+      </ul>
+      <li>scent/smell</li>
+      <li>attach/detach: colonies, parenting<br>
+      </li>
+      <li>hash by x,y<span style="font-weight: bold;"></span></li>
+    </ul>
+    <ul>
+      <li>prior art</li>
+      <ul>
+        <li>Biogenesis</li>
+        <li>Gaia Gracias 1996</li>
+        <li>LifeDrop virtual-worlds.net</li>
+        <li>
+          <meta http-equiv="content-type" content="text/html;
+            charset=windows-1252">
+          Echo<br>
+          (Holland, 1990),<br>
+          LEE<br>
+          (Menczer<br>
+          and Belew, 1996b,a), or<br>
+          Geb<br>
+          (Channon and Damper, 1998)</li>
+        <li>Evolving Morphological and Behavioral Diversity Without
+          Predefined Behavior<br>
+          Primitives<br>
+          Peter-Paul Pichler and Lola Canamero
+          <meta http-equiv="content-type" content="text/html;
+            charset=windows-1252">
+        </li>
+      </ul>
+    </ul>
+    <br>
+    <ul>
+      <li>293MB 2.8M cycles 27 of 40K bugs 11h<br>
+      </li>
+    </ul>
+    <h2>Prior Art</h2>
+    <h3>Vita - 1993<br>
+    </h3>
+    <ul>
+      <li>VitaL: pcode-like language incl. Graze, Bite, Move, Fork,
+        Turn, Look, Feel<br>
+      </li>
+    </ul>
+    <h3>Evolve 4.0</h3>
+    <ul>
+      <li>
+        <meta http-equiv="content-type" content="text/html;
+          charset=windows-1252">
+        "A mixture of Conway's LIFE and Core Wars. Each organism has a
+        genetic program which controls its behavior. The program has all
+        the normal types of instructions you would expect from a
+        programming language: flow control, arithmetic, subroutines, and
+        so on. But, there are also special primitives for interacting
+        with the universe. Such as EAT, LOOK, GROW, MOVE, MAKE-SPORE."</li>
+      <li>"All KFORTH programs are compiled into a tabular
+        representation. Each element of the table is either a number or
+        an instruction. Each row is called a "code block". The first row
+        is special because this is where execution always starts. A
+        KFORTH program begins executing at (0, 0) (code block 0, program
+        counter 0). If the table element contains a number, it is pushed
+        on the data stack, otherwise the instruction is executed."</li>
+      <li>"Mutations operate on this tabular structure. A simple
+        mutation is to pick two random entries and swap them. Or two
+        random rows can be swapped. etc...&nbsp; Any weird and wacky
+        random transformation to this table will result in valid KFORTH
+        program. During sexual reproduction two genetic programs are
+        combined. We accomplish this by interlacing code blocks from the
+        first parent with the second parent."<br>
+      </li>
+    </ul>
+    <meta http-equiv="content-type" content="text/html;
+      charset=windows-1252">
+    <pre style="margin-left: 80px;"><small>main:
+{
+	1 0 GROW -1 = LeafCell if
+	brain call
+}
+LeafCell:
+{
+   1 0 EAT pop
+   -1 -1 EAT pop
+   1 ?loop
+}
+brain:
+{
+  ; ... creature brain goes here ...
+}</small></pre>
+    <h3>Darwinbots</h3>
+    <ul>
+      <li>Darwinbots simulates <span class="mw-redirect">genes</span>
+        that control the behavior of an individual "bot". Each gene has
+        a trigger for its activation, a body that dictates gene
+        function, and an end marker.</li>
+      <li>All bots have their own semi-protected address space.</li>
+      <li>All bots execute their <i>entire</i> DNA code once per cycle,
+        rather than a single code being activated per cycle.</li>
+      <li>Example DNA<br>
+      </li>
+    </ul>
+    <meta http-equiv="content-type" content="text/html;
+      charset=windows-1252">
+    <pre style="margin-left: 80px;"><small>' Gene 1 Food Finder
+cond
+ *.eye5 0 &gt;
+ *.refeye *.myeye&nbsp;!=
+start
+ *.refveldx .dx store
+ *.refvelup 30 add .up store
+stop
+' Gene 2 Eat Food
+cond
+ *.eye5 50 &gt;
+ *.refeye *.myeye&nbsp;!=
+start
+-1 .shoot store
+ *.refvelup .up store
+stop
+' Gene 3 Avoiding Family
+cond
+ *.eye5 0 =
+ *.refeye *.myeye = or
+start
+ 314 rnd .aimdx store
+stop
+' Gene 4 Reproduce
+cond
+ *.nrg 20000 &gt;
+start
+ 10 .repro store
+stop
+end</small></pre>
+    <h3>Core Wars et al.<br>
+    </h3>
+    <h4>Core Wars<br>
+    </h4>
+    <h4>Avida</h4>
+    <ul>
+      <li>"
+        <meta http-equiv="content-type" content="text/html;
+          charset=windows-1252">
+        Every digital organism lives in its own protected region of
+        memory, and is executed by its own virtual CPU. By default,
+        other digital organisms cannot access this memory space, neither
+        for reading nor for writing, and cannot execute code that is not
+        in their own memory space."</li>
+    </ul>
+    <h4>Tierra</h4>
+    <ul>
+      <li>Core Wars-style assembly language programs in a 1-D memory</li>
+    </ul>
+    <h4>Nanopond</h4>
+    <ul>
+      <li>"Nanopond is a corewar-style evolvable instruction set based
+        virtual machine written in C. It is similar in design to Tierra
+        and Avida but considerably smaller and simpler."</li>
+    </ul>
+    <h4>VENUS</h4>
+    <ul>
+      <li>
+        <meta http-equiv="content-type" content="text/html;
+          charset=windows-1252">
+        "VENUS is a modification of Core Wars in which the&nbsp;
+        Computer&nbsp; programs can&nbsp; mutate, thus the pseudo
+        assembler code creatures of VENUS evolve steadily.&nbsp;
+        Furthermore&nbsp; each&nbsp; memory&nbsp;&nbsp;
+        location&nbsp;&nbsp; is&nbsp;&nbsp; endowed&nbsp;&nbsp; with
+        "resources"&nbsp; which,&nbsp; like&nbsp; sunshine&nbsp;
+        are&nbsp; added at a steady state."</li>
+    </ul>
+    <h3>ALife Programs Without Turing-Complete DNA</h3>
+    <ul>
+      <li><a href="https://sites.google.com/site/scriptbotsevo/"><b>ScriptBots</b></a></li>
+      <ul>
+        <li>carnivores and herbivores, vision, neural network brains<br>
+        </li>
+      </ul>
+      <li><b>Species</b> by James Schumacher</li>
+      <ul>
+        <li>Graphics/physics like Spore, but a simulator not a game.</li>
+        <li>"
+          <meta http-equiv="content-type" content="text/html;
+            charset=windows-1252">
+          Genetics are represented by a simple floating point number
+          list. Creature behavior and statistics all come down to
+          equations. Health and energy are represented as scalar
+          values."</li>
+      </ul>
+      <li><b>GenePool </b>by Jeffrey Ventrella</li>
+      <ul>
+        <li>"Developed as a derivation of Darwin Pond. Although it has
+          fewer interactive aspects, it extends Darwin Pond in terms of
+          the simulation by emphasizing the effects of sexual selection
+          on morphology and behavior."</li>
+        <li>User sets attractiveness criterion:<br>
+          Similar Color Opposite Color<br>
+          Big Small<br>
+          Hyper Still<br>
+          Long Short<br>
+          Straight Crooked<br>
+        </li>
+      </ul>
+      <li><b>DarwinPond </b>by Jeffrey Ventrella<b><br>
+        </b></li>
+      <ul>
+        <li>Genome consists of 15 numbers:<br>
+          number of limbs<br>
+          number of segments per limb<br>
+          rate<br>
+          amplitude<br>
+          alternate limb flip <br>
+          straddle<br>
+          turning gene #1<br>
+          turning gene #2<br>
+          turning gene #3<br>
+          joint angle gene<br>
+          motion gene #1<br>
+          motion gene #2<br>
+          motion gene #3<br>
+          base color<br>
+          color shift<br>
+        </li>
+      </ul>
+      <li><b>ai.planet</b></li>
+      <ul>
+        <li>hardcoded species: ~20 animal, ~10 plant. One kind of tree
+          can "evolve" via properties of its fruit.<br>
+        </li>
+      </ul>
+      <li><b>Darwin @Home</b>: evolve locomotion<br>
+      </li>
+      <li><b>Artifical Life</b> by Stormy Productions: $0.99 on iOS<br>
+      </li>
+      <ul>
+        <li>10 "chromosomes" per organism<br>
+        </li>
+        <ul>
+          <li>If my (hunger desire sleepiness life) &lt; &gt; X percent<br>
+          </li>
+          <li>If nearest (protozoa food hiding-spot predator scavenger
+            relative foreigner) &lt;&gt; X away<br>
+          </li>
+          <li>Then (eat find-mate hide sleep attack goto avoid)</li>
+        </ul>
+        <li>Sex gives 5 chromosomes from each parent</li>
+        <li>Universe-enforced life span, min/max population<br>
+        </li>
+      </ul>
+      <li style="font-weight: bold;">DigiHive</li>
+      <ul>
+        <li>
+          <meta http-equiv="content-type" content="text/html;
+            charset=windows-1252">
+          "complexes of particles are capable to recognize and
+          manipulate other structures of particles around them. The
+          description of function performed by a complex is contained in
+          its internal structure (i.e. types and location of particles
+          inside it). The structure of each complex is then interpreted
+          as a program written in a specially defined Prolog like
+          language"
+          <meta http-equiv="content-type" content="text/html;
+            charset=windows-1252">
+        </li>
+        <li>"programs are written in a declarative language (simplified
+          Prolog), which is less vulnerable to small fluctuations"</li>
+      </ul>
+      <li><span style="font-weight: bold;">Polyworld</span>: "
+        <meta http-equiv="content-type" content="text/html;
+          charset=windows-1252">
+        Each individual makes decisions based on a <span
+          class="mw-redirect">neural net</span> using <span
+          class="mw-redirect">Hebbian learning</span>; the neural net is
+        derived from each individual's genome. The genome does not
+        merely specify the wiring and weighting of the neural nets, but
+        also determines their size, speed, color, mutation rate"</li>
+      <li><b>Primordial Life</b> by Jason Spofford</li>
+      <ul>
+        <li>
+          <meta http-equiv="content-type" content="text/html;
+            charset=windows-1252">
+          The genetic code consists of 10 segment genes and one trait
+          gene.&nbsp; A line is made up of 1 to 10 segments, and a biot
+          can have 1 to 8 lines.</li>
+      </ul>
+      <li><a
+href="http://www.atheistnexus.org/profiles/blogs/neural-bots-an-experiment-in?xg_source=activity"><b>Neural
+
+
+
+
+
+
+            Bots</b></a>: yet another neural-network-plus-vision
+        bug-hunting-bug simulator<br>
+      </li>
+      <li><span style="font-weight: bold;">Framsticks</span>: "
+        <meta http-equiv="content-type" content="text/html;
+          charset=windows-1252">
+        a three-dimensional environment, genotype representation of
+        organisms, physical structure (body) and neural network (brain)
+        both described in genotype, stiumuli loop (environment –
+        receptors – brain – effectors – environment), genotype
+        reconfiguration operations (mutation, crossing over, repair),
+        energetic requirements and balance, and specialization"</li>
+      <li><span style="font-weight: bold;">AnimatLab</span>:
+        "biomechanical simulation and biologically realistic neural
+        networks"<br>
+        <span style="font-weight: bold;"></span></li>
+      <li><b>Grandroids</b> by Steve Grand</li>
+      <ul>
+        <li>this is not a game about evolution. The creatures will
+          certainly be able to evolve in a pretty sophisticated way
+          (perhaps even the most sophisticated way ever tried), but in
+          practice it’s not the primary focus of the game. Natural
+          selection is VERY SLOW, and the time it takes is proportional
+          to both the complexity of the creatures that are evolving and
+          their life span. For these creatures to live long enough for
+          you to get to know them and care about them means that they
+          will evolve very slowly<br>
+        </li>
+      </ul>
+      <li><span style="font-weight: bold;">Creatures</span> by Steve
+        Grand<br>
+      </li>
+      <ul>
+        <li>computer program series, created in the mid-1990s by English
+          computer scientist Steve Grand whilst working for the
+          Cambridge video games developer Millennium Interactive.
+          Gameplay focuses on raising alien creatures known as Norns,
+          teaching them to survive, helping them explore their world,
+          defending them against other species, and breeding them.
+          Rather than taking a scripted approach, Creatures series games
+          were driven by detailed biological and neurological simulation
+          <meta http-equiv="content-type" content="text/html;
+            charset=windows-1252">
+        </li>
+        <li>"sophisticated biochemistry and neural network brains"</li>
+      </ul>
+      <li><span style="font-weight: bold;">Technosphere</span>:
+        "building carnivores or herbivores from a select few component
+        parts (heads, bodies, eyes, and wheels). Their digital DNA was
+        linked to each component and the completed creature's attributes
+        (speed, visual perception, rate of digestion, etc.) was
+        determined by the combination of each feature's strengths and
+        weaknesses"</li>
+      <li><span style="font-weight: bold;">Noble Apes</span></li>
+      <ul>
+        <li>
+          <meta http-equiv="content-type" content="text/html;
+            charset=windows-1252">
+          four diploid chromosomes, each consisting of 32bits with 2
+          bits per base</li>
+        <li>
+          <meta http-equiv="content-type" content="text/html;
+            charset=windows-1252">
+          Gene values corresponding to, or influencing, phenotypic
+          traits are extracted from the genome by taking pairs of bases
+          from different locations and joining them together to make a
+          single 4 bit value. The locations for the two bases are not
+          necessarily sequential and are specified by <em>regulator
+            genes</em> in separate areas of the genome. This means that
+          phenotypes are a product of a web of inter-connected genes,
+          and that an alteration in one gene might also have cascading
+          effects upon others, resulting in non-trivial dynamics over
+          successive generations.</li>
+        <li>behavior genes: groom, aggression, speed, stagger, swim,
+          climb, metabolic rate</li>
+        <li>mating genes: status, pigment, height, size, hair, seek,
+          bond, incest</li>
+        <li>metabolism: vegetables, fruit, shellfish, seaweed</li>
+        <li>ApeScript: <br>
+        </li>
+      </ul>
+      <li style="font-weight: bold;">3D Virtual Creature Evolution</li>
+      <ul>
+        <li>
+          <meta http-equiv="content-type" content="text/html;
+            charset=windows-1252">
+          "evolve the body plans and control systems of virtual
+          creatures whose bodies were composed of jointed blocks"</li>
+        <li>"Fitness functions include distance traveled, maximum
+          height, average height, “TOG” (determined by amount of time
+          creature is in contact with ground), and “Sphere” (determined
+          by creature’s ability to catch and hold spheres)"</li>
+      </ul>
+      <li><b>Swarm</b> by Chris Langton</li>
+      <ul>
+        <li>programming platform for agent-based modeling<br>
+        </li>
+      </ul>
+      <li>EvoGrid: simulates the chemical origins of life on Earth<br>
+      </li>
+      <li>Nicolas Chaumont, Christoph Adami, Keck Graduate Institute,
+        Claremont, CA</li>
+      <ul>
+        <li>"The population consists of three-dimensional, autonomously
+          foraging, blocky creatures<br>
+          (Sims, 1994, Artificial Life 1, p.353)(Chaumont et al., 2007,
+          Artificial Life 13, p.139) with sensory-motor capabilities
+          that are controlled with a neural network, coexist in the
+          world,<br>
+          and compete for its resources. In this implementation they
+          reproduce asexually, and the genome that codes for its
+          morphology and behavior (via the neural network that controls
+          its motions) undergoes mutations during reproduction. The
+          world in which the creatures live is a three- dimensional,
+          physically simulated environment where energy resources are
+          continuously replenished, decay, and eventually absorbed by
+          foragers. Creatures die if their energy is depleted, and are
+          born from a parent that has accumulated enough energy to
+          reproduce. There is no explicit fitness function in this
+          system; however since poor foragers quickly die out, we
+          witness a strong selective pressure to pass on genes for
+          increasingly sophisticated foraging behavior to the
+          offspring."</li>
+        <li>"We included several types of food sources placed at varying
+          heights on pedestals, in addition to food sources distributed
+          at ground level."<br>
+        </li>
+        <li>"A world with three types of resources (green, red, and blue
+          spheres) that require different morphologies or behaviors
+          access. 3D organisms are yellow. In the inset, a virtual
+          creature is toppling a pedestal to reach a red resource
+          sphere.The blue resources are on inclines and require a form
+          of locomotion that can counteract the low friction of the
+          surface. Standard organisms cannot climb this incline."<br>
+        </li>
+      </ul>
+      <li><b>Sticky Feet</b>: Evolution in a Multi-Creature Physical
+        Simulation<br>
+        Greg Turk, Georgia Institute of Technology, Atlanta, GA,
+        turk@cc.gatech.edu<br>
+        <ul>
+          <li>"We demonstrate artificial evolution in a system that
+            combines physical simulation with competition between
+            creatures. The simulated creatures are constructed using
+            point masses that are connected by oscillating springs. The
+            creatures pull them-selves across their 2D environment by
+            varying the amount of friction at different point masses,
+            giving them sticky feet. Creatures combat one another, and
+            the victor of such an en- counter earns the right to
+            reproduce, possibly with mutation. Rather than testing one
+            individual against another in pairs, as many as 100
+            creatures move and interact with each other in the same 2D
+            environment. Over time, the initial creatures are replaced
+            by new creatures that are more agile and better at combating
+            others. The evolved creatures from such simulations exhibit
+            a wide array of body plans, locomotion styles, and
+            interaction behaviors."</li>
+          <li>"
+            <meta http-equiv="content-type" content="text/html;
+              charset=windows-1252">
+            The possible mutated parameters are segment length,
+            amplitude of oscillation, frequency of oscillation, phase of
+            oscillation, and the magnitude of change that the segment
+            uses to alter the friction of its endpoints."</li>
+        </ul>
+      </li>
+      <li><span style="font-weight: bold;">Gardens of Kyresco</span>:
+        "Each cell operates independently according to the instructions
+        embedded in its genetic code. Cell size, shape, color,
+        interaction with neighboring cells and the environment, all are
+        controlled by expressed proteins. Which are in turn controlled
+        by regulator proteins"</li>
+      <li><span style="font-weight: bold;">breve</span>: "Users define
+        the behaviors of agents in a 3D world and observe how they
+        interact. breve includes physical simulation and collision
+        detection so you can simulate realistic creatures, and an OpenGL
+        display engine so you can visualize your simulated worlds"</li>
+    </ul>
+    <h3> </h3>
+    <h2>Experimental Results<br>
+    </h2>
+    <ul>
+      <li>We hand-coded Vulture and Algae species, but the Vulture
+        species spawned a mutant that is more algae-like than our Algae
+        species.&nbsp;</li>
+      <li>Another Vulture mutant lost its Gene sequence for fleeing from
+        living organisms, with the result that when two of them
+        encounter each other they freeze and in effect set up a colony.<br>
+      </li>
+      <li>Nursing</li>
+      <li>Parasitism</li>
+      <li>Convergent evolution: under parameters in which Spiders took
+        over, in the next universe both Mosquitoes and Clams evolved
+        into spiders and took over the world<br>
+      </li>
+    </ul>
+  </body>
+</html>

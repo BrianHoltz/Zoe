@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta content="text/html; charset=ISO-8859-1"
+      http-equiv="Content-Type">
+    <title>Zoe</title>
+  </head>
+  <body>
+    Zoe: organisms that hunt, mate, reproduce, and evolve under the
+    control of algorithms that mutate.<br>
+    <h2>Features</h2>
+    In Zoe, organisms ("bugs") are simulated creatures that<br>
+    <ul>
+      <li>feel and see nearby objects,</li>
+      <li>turn and move toward or away from sensed objects,<br>
+      </li>
+      <li>get energy from sunlight or from objects they bite,</li>
+      <li>sense physical and genetic attributes of themselves and of
+        nearby bugs,</li>
+      <li>think and act by executing "genes": subroutines running in the
+        bug's virtual machine, and</li>
+      <li>mate, reproduce, and evolve through mutation and sexual
+        recombination of these genes.<br>
+      </li>
+    </ul>
+    <h2>Behavior, Not Structure</h2>
+    Zoe bugs have no physical or structural attributes, and instead only
+    have functional attributes like position, heading, size, energy
+    level, memory, and sensory data.&nbsp; Each gene of a bug is a
+    When/Do pair of programs in a Turing-complete language called Zoel.
+    Each gene executes on a separate thread in the virtual machine for
+    each bug.&nbsp; The genome of a species is a priority-ordered list
+    of genes, and higher-priority genes can interrupt lower-priority
+    genes if their When program evaluates to true.&nbsp; Genes are
+    sometimes deleted, reordered, or mutated during asexual
+    reproduction, resulting in a new species. If the parent mated before
+    giving birth, then the child gets half its genes from each parent,
+    also creating a new species. Thus evolution in Zoe modifies the
+    behavior of bugs, not their structure or appearance. (However, each
+    species has a distinct color in the Zoe graphical view, and mutant
+    species are randomly assigned a color slightly different from that
+    of the mother's species.)<br>
+    <h2>Energy and the Zoel VM<br>
+    </h2>
+    The resources in a Zoe world are energy, plus execution time and
+    memory space in each bug's Zoel virtual machine.<br>
+    <ul>
+      <li>Energy enters Zoe through constant sunlight that every bug
+        automatically absorbs, and through randomly-generated simple
+        bugs that drift spontaneously into the world. Energy leaves Zoe
+        by bug locomotion and by inefficiency in eating and reproducing.
+      </li>
+      <li>During each cycle of a Zoe world, each living bug gets a turn
+        to execute its genome. Its turn continues until the bug executes
+        1) an operation that costs energy or 2) the maximum per-turn
+        number of energy-free operations.</li>
+      <li>Each Zoe bug has a private call stack and data stack for each
+        of its genes, and an associative heap that is shared by all its
+        genes. The sizes of these data structures are limited as a
+        function of the bug's size. When the limits are reached, the
+        oldest elements drop off the bottom of the stack or are removed
+        from the heap.<br>
+      </li>
+    </ul>
+    <h2>The Zoel Genotype</h2>
+    A Zoel genotype is a priority-ordered list of genes. A gene is a <i>When/Do</i>
+    pair of programs written in Zoel. The <i>When</i> programs are
+    evaluated in order, to find the highest-priority gene whose <i>When</i>
+    evaluates to true. That gene's <i>Do</i> program is then executed.<br>
+    <br>
+    A Zoel program is a list of expressions. An expression can be an
+    operation, a value, or another list of expressions. An operation
+    specifies an operator and an optional operand. An operator operates
+    on one or both of its optional operand and the top element of the
+    data stack.&nbsp; Operands and stack elements may be string literals
+    or floating point numbers. Operands (but not stack elements) may
+    also be:<br>
+    <ul>
+      <li>a reference to a "hardware register" (bug attribute)</li>
+      <li>a reference to a stack element (keyed by integer depth)</li>
+      <li>a reference to a heap value (keyed by any literal)</li>
+      <li>a list of expressions<br>
+      </li>
+    </ul>
+    The Zoel grammar is:<br>
+    <meta http-equiv="content-type" content="text/html;
+      charset=ISO-8859-1">
+    <pre> Genotype       ::== GeneList
+ GeneList       ::== Gene GeneList
+ Gene           ::== <b>When</b> ExpressionList <b>Do</b> ExpressionList
+ Gene           ::== <b>Do</b> ExpressionList
+ ExpressionList ::== <i>Label</i><b>: {</b> Expressions <b>}</b>
+ ExpressionList ::== <b>{</b> Expressions <b>}</b>
+ Expressions    ::== Expression | Expression <b>,</b> Expressions
+ Expression     ::== Value | Operation | ExpressionList
+ Operation      ::== Operator | Operator Expression
+ Value          ::== <i>StringLiteral</i> | <i>Number</i> | <b>Me</b>.Register | <b>It</b>.Register <br>                     | <b>Stack</b>.<i>Integer</i> | <b>Heap</b>.<i>Key</i><br> Operator       ::== <b>Move</b> | <b>Turn</b> | <b>Bite</b> | <b>Spawn</b> | <b>Split</b> | <b>Mate</b> | <b>EndTurn</b><br>                     | <b>SenseFarther</b> | <b>Mood</b> | <b>Print</b><br>                     | <b>IfThen</b> | <b>Else</b> | <b>While</b> | <b>Call</b><br>                     | <b>Push</b> | <b>Pop</b> | <b>Set</b> | <b>Get</b><br>                     | <b>And</b> | <b>Or</b> | <b>Equals</b> | <b>LessThan</b> | <b>GreaterThan</b><br>                     | <b>Plus</b> | <b>Minus</b> | <b>Times</b> | <b>DividedBy</b> | <b>Modulus</b><br>                     | <b>Not</b> | <b>Random</b> | <b>Negate</b> | <b>AbsoluteVal</b><br> Register       ::== <b>Cycle</b> | <b>ID</b> | <b>Species</b> | <b>Age</b> | <b>Size</b> | <b>Strength</b> | <b>Mood</b> | <b>Pain</b> | <b>Heading</b><br>                     | <b>Location</b> | <b>BirthLocation</b> | <b>AncestralLocation</b><br>                     | <b>FeelSomething</b> | <b>SeeSomething</b> | <b>Toward</b> | <b>Away</b><br>                     | <b>Range</b> | <b>IsAlive</b> | <b>IsLastMate</b> | <b>IsSameSpecies</b><br>                     | <b>IsParent</b> | <b>IsChild</b> | <b>IsAncestor</b> | <b>IsDescendant</b> | <b>IsFamily</b><br></pre>
+    <p><br>
+    </p>
+    <h2>Example Zoe Genome</h2>
+    <pre><small>When {<br>   Me.FeelSomething,<br>   And Not It.IsSameSpecies<br>} Do {<br>   Bite<br>}<br><br>When {<br>   Me.SeeSomething,<br>   And Not It.IsSameSpecies<br>} Do {<br>   Turn Me.Toward,<br>   Move<br>}<br><br>When {<br>   {<br>      Me.SeeSomething,<br>      And It.IsSameSpecies<br>   } And {<br>      It.Size,<br>      GreaterThan Me.Size<br>   }<br>} Do {<br>   // Flock with conspecific leader<br>   Turn It.Heading,<br>   Move<br>}<br><br>Do {<br>   Move,<br>   Spawn<br>}<br><br></small></pre>
+  </body>
+</html>
