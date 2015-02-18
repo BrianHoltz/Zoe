@@ -339,6 +339,7 @@ public class Bug extends ZObject implements ZoelVMHost {
         return lastMate;
     }
 
+    // Returns amount of energy bitten
     private double bite() {
         ZObject closest = world.closestObject( this, radius() );
         if (closest == null) {
@@ -348,6 +349,17 @@ public class Bug extends ZObject implements ZoelVMHost {
         if (closest instanceof Bug) return bite( (Bug) closest );
         if (closest instanceof Joule) return bite( (Joule) closest );
         return 0;
+    }
+
+    // Returns amount of energy barfed
+    private double barf() {
+        Joule barfedJoule = new Joule( world );
+        barfedJoule.setXY(x(), y());
+        lastSensed = barfedJoule;
+        barfedJoule.joules = strength;
+        world.add( barfedJoule );
+        strength = 0;
+        return barfedJoule.joules;
     }
 
     private Bug randomSplit() {
@@ -473,7 +485,10 @@ public class Bug extends ZObject implements ZoelVMHost {
     }
 
     private void photoSynthesize() {
-        grow( World.SolarJoulesPerUnitBodyAreaPerCycle * diameter );
+        double newEnergy = World.SolarJoulesPerPixelPerCycle
+            * getRadius() * getRadius() * Math.PI;
+        world.energyEverPhotosynthesized += newEnergy;
+        grow( newEnergy );
     }
 
     private void updateRegisters( RegisterReference regRef ) {
@@ -633,6 +648,9 @@ public class Bug extends ZObject implements ZoelVMHost {
                 break;
             case Bite:
                 if (bite() == 0) return ZoelVM.Turn.Continues;
+                break;
+            case Barf:
+                if (barf() == 0) return ZoelVM.Turn.Continues;
                 break;
             case Spawn:
                 if (spawn( operand.toNumber() ) == null) return ZoelVM.Turn.Continues;
@@ -863,6 +881,10 @@ public class Bug extends ZObject implements ZoelVMHost {
 
     public int id() {
         return id;
+    }
+
+    public double getRadius() {
+        return diameter/2;
     }
 
     public static int numEverCreated() {

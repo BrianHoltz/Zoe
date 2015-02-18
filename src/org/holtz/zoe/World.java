@@ -43,7 +43,7 @@ public class World extends Observable {
     public static double NewPlanktonPerTurnPerPixel = 0.00000001;
     // 1.0 == universe radius i.e. totally random, 0.0 == always at universe midpoint
     public static double PlanktonDistributionRandomness = 1.0;
-	public static double SolarJoulesPerUnitBodyAreaPerCycle = 0.00001;
+	public static double SolarJoulesPerPixelPerCycle = 0.00001;
 	public static double BrownianMotionPerCycle = 0.2;
     public static int MaxThoughtsPerCycle = 100;
     // Energy to move 1 sq pixel through a distance of 1 pixel in 1 cycle
@@ -88,6 +88,7 @@ public class World extends Observable {
 	public int height = Height;
 	public ArrayList<Bug> bugs;
 	public ArrayList<Joule> joules;
+	public double energyEverPhotosynthesized = 0;
 	public int cycle = 1; // So bugs that spawn at cycle % N won't spawn immediately
 	public Date start = new Date();
 	public long seed;
@@ -123,7 +124,7 @@ public class World extends Observable {
 		joules = new ArrayList<Joule>();
 		int initialJouleCount = (int)(NewJoulesPerTurnPerPixel * size.width * size.height * 2000);
         for (int i = 0; i < initialJouleCount; i++) {
-        	add( new Joule( this ));
+        	add( new Joule( this )); // TODO Joule should add self to world
         }
         // Genotype2 species = Genotype2.getRandomGenotype( random );
         // System.out.println( species.toString( "\n" ) );

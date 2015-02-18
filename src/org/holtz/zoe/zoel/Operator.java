@@ -30,8 +30,8 @@ public enum Operator {
 	/**
 	 * Barf up some energy to leave at the current location. If no arg, arg = 1.0.
 	 * If 0 <= arg <= 1.0, arg is fraction of current bite size.
+	 */
 	Barf,
-     */
     /**
      * Set LastMate to the nearest visible bug that is within Feel range.
      * A system property controls whether

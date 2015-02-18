@@ -73,7 +73,8 @@ public class WorldStatusPanel extends JPanel {
 		worldText += "    "
 			+ String.format( "Energy %.0f =", strength + mass + joules )
 			+ String.format( "$%.0f", strength)
-			+ String.format( " + %.0fg", mass);
+			+ String.format( " + %.0fg", mass)
+			+ String.format( " (%.0f lux)", world.energyEverPhotosynthesized);
 		if (joules > 0) worldText += String.format( " + %.0f♦", joules );
 		worldLabel.setText( worldText );
 		String bugText = "Selected Bug";
