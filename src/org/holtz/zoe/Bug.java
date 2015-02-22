@@ -828,15 +828,7 @@ public class Bug extends ZObject implements ZoelVMHost {
         if (labels) msg += " diam=";
         msg += String.format( "%.1fpx ", diameter );
         if (labels) msg += " age=";
-        msg += age;
-        if (!labels)
-            msg += "s";
-        else
-            msg += " ";
-        msg += String.format( " %.0fx", x() );
-        if (labels) msg += " ";
-        msg += String.format( " %.0fy", y() );
-        msg += String.format( " %.1fπ", heading/Math.PI );
+        msg += age + "s";
         if (lastMate != null) msg += " mate=" + lastMate.id;
         if (separator.startsWith( "\n" )) {
             msg += separator + phenotype.toString( separator );
