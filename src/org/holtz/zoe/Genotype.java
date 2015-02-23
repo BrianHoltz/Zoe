@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 
 import org.holtz.zoe.zoel.Operation;
@@ -72,7 +73,6 @@ public class Genotype {
 	private static void loadFounders() {
 		if (founders != null) return;
 		founders  = new ArrayList<Genotype>();
-		if (! World.LoadBugFiles) return;
 		File dir = new File("bugs");
 		File[] children = dir.listFiles();
 		if (children == null) return;
@@ -98,6 +98,10 @@ public class Genotype {
 	public static int getNumEverCreated() {
 		return numEverCreated;
 	}
+	public static Collection<Genotype> getFounders() {
+	    loadFounders();
+	    return founders;
+	}
 	public static int getNumFounders() {
 	    loadFounders();
 	    return founders.size();
@@ -107,10 +111,9 @@ public class Genotype {
 	    if (founders.size() < (nth+1)) return null;
 	    return founders.get( nth );
 	}
-    public static Genotype random(Random random) {
+    public static Genotype randomFounder(Random random) {
         loadFounders();
         if (founders.size() > 0) return founders.get( random.nextInt( founders.size() ) );
-        //if (random.nextBoolean()) return algae();
         return new Genotype( random );
     }
     public void addMember( Bug bug ) {

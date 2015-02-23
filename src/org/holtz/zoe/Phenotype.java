@@ -5,7 +5,8 @@ import java.util.Deque;
 import org.holtz.zoe.zoel.ZoelVM;
 
 /**
- * The expression of a <code>Bug</code>'s <code>Genotype</code> is a <code>PheneList</code> of <code>Phene</code>s.
+ * The expression of a <code>Bug</code>'s <code>Genotype</code> is a 
+ * <code>PheneList</code> of <code>Phene</code>s.
  * @author Brian Holtz
  */
 public class Phenotype {

@@ -72,7 +72,7 @@ public class Bug extends ZObject implements ZoelVMHost {
         diameter = World.BugMinSize
             + world.random.nextInt( World.BugMaxSize - World.BugMinSize ) / 2;
         strength = world.random.nextFloat() * maxStrength();
-        genotype = Genotype.random( world.random );
+        genotype = new Genotype( world.random );
         enterTheWorld();
     }
 
@@ -274,20 +274,12 @@ public class Bug extends ZObject implements ZoelVMHost {
     private double bite(Joule joule) {
         double oldSize = diameter;
         assert joule != null : "Biting null joule";
-        double oldStrength = strength;
-        double oldJoule = joule.joules;
         double maxUsableBite = maxStrength( World.BugMaxSize ) - strength;
         double toBite = Math.min( biteSize(), maxUsableBite );
         double strengthBitten = Math.min( toBite, joule.joules );
         grow( World.BiteEfficiency * strengthBitten );
         assert strength >= 0 : "Negative strength after biting " + joule;
         joule.getBit(strengthBitten);
-        String msg = id + " (" + String.format( "%5.3f", oldStrength ) + " => "
-                + String.format( "%5.3f", strength ) + ")" + " bit joule ("
-                + String.format( "%5.3f", oldJoule ) + " => "
-                + String.format( "%5.3f", joule.joules );
-        msg += ")";
-        // System.err.println( msg );
         assert oldSize <= diameter : "bug shrank by biting a joule";
         return strengthBitten;
     }
