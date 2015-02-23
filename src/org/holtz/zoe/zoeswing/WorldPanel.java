@@ -38,13 +38,6 @@ public class WorldPanel extends JPanel implements Observer, MouseMotionListener,
 	public void createWorld() {
 		world = new World( getSize() );
 		world.addObserver( this );
-		// Initial objects were already added before observation started, so...
-        for (Bug bug : world.bugs) {
-        	add( bug );
-        }
-        for (Joule joule : world.joules) {
-        	add( joule );
-        }
 	}
 
     public void add( Joule joule ) {
@@ -52,6 +45,7 @@ public class WorldPanel extends JPanel implements Observer, MouseMotionListener,
         add( jouleLabel );
     	jouleLabel.addMouseMotionListener(this);
     	jouleLabel.addMouseListener(this);
+    	jouleLabel.repaint();
     }
 
     public void add( Bug bug ) {
@@ -60,6 +54,7 @@ public class WorldPanel extends JPanel implements Observer, MouseMotionListener,
         add( bugLabel, BorderLayout.CENTER );
     	bugLabel.addMouseMotionListener(this);
     	bugLabel.addMouseListener(this);
+    	bugLabel.repaint();
     }
 
 	@Override

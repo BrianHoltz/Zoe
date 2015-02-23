@@ -34,7 +34,8 @@ public class ZoePanel extends JPanel
 	
 	public WorldStatusPanel worldStatusPanel;
 
-	private JMenuItem worldPropsMenuItem;
+	private JMenuItem worldPropsMenuItem, loadRandomBugsMenuItem,
+	    loadPredefinedBugsMenuItem;
 	private JMenuItem runNextCycleMenuItem, runGoMenuItem, runStopMenuItem, runNextBugMenuItem;
 	private JMenuItem cutMenuItem, copyMenuItem, propertiesMenuItem, 
 	    selectMotherMenuItem, selectFatherMenuItem, selectMateMenuItem,
@@ -98,6 +99,20 @@ public class ZoePanel extends JPanel
         menuItem.addActionListener(this);
         menu.add(menuItem);
         worldPropsMenuItem = menuItem;
+
+        menuItem = new JMenuItem("Load Random Bugs", KeyEvent.VK_R);
+        menuItem.getAccessibleContext().setAccessibleDescription(
+            "Add to the World a set of random bugs");
+        menuItem.addActionListener(this);
+        menu.add(menuItem);
+        loadRandomBugsMenuItem = menuItem;
+
+        menuItem = new JMenuItem("Load Predefined Bugs", KeyEvent.VK_L);
+        menuItem.getAccessibleContext().setAccessibleDescription(
+            "Add to the World one each of all predefined Bugs");
+        menuItem.addActionListener(this);
+        menu.add(menuItem);
+        loadPredefinedBugsMenuItem = menuItem;
 
         menu = new JMenu("Edit");
         menu.setMnemonic(KeyEvent.VK_E);
@@ -323,6 +338,12 @@ public class ZoePanel extends JPanel
 			} catch (IOException e1) {
 				System.err.println( "Cannot open Zoe.properties: " + e1.toString());
 			}
+        } else if (source == loadRandomBugsMenuItem) {
+            world.loadRandomBugs();
+            worldStatusPanel.updateStats();
+        } else if (source == loadPredefinedBugsMenuItem) {
+            world.loadFounderBugs();
+            worldStatusPanel.updateStats();
     	} else if (source == selectMotherMenuItem) {
     	    selectOrBeep( worldPanel.selectedBug == null ? null : worldPanel.selectedBug.bug.mother );
         } else if (source == selectFatherMenuItem) {

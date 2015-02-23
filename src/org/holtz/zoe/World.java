@@ -24,10 +24,9 @@ public class World extends Observable {
 	// Constants controlling how the world begins
 	//
 	public static int Seed = 0; // 0 means get seed from clock
-	public static boolean LoadBugFiles = false;
     public static boolean AutoStart = true;
-	public static int InitialBugCount = 0; // 0 == use InitialPixelsBetweenBugs
-	public static int InitialPixelsBetweenBugs = 140;
+	public static int InitialBugsPerSpecies = 5;
+	public static int PixelsPerInitialBug = 100000;
 	public static int MaxGenesOfRandomSpecies = 10;
 	
 	public static boolean SizeWorldToScreen = true;
@@ -86,8 +85,8 @@ public class World extends Observable {
     
 	public int width = Width;
 	public int height = Height;
-	public ArrayList<Bug> bugs;
-	public ArrayList<Joule> joules;
+	public ArrayList<Bug> bugs = new ArrayList<Bug>();
+	public ArrayList<Joule> joules = new ArrayList<Joule>();
 	public double energyEverPhotosynthesized = 0;
 	public int cycle = 1; // So bugs that spawn at cycle % N won't spawn immediately
 	public Date start = new Date();
@@ -107,35 +106,23 @@ public class World extends Observable {
 		seed = Seed;
 		if (seed == 0) seed = System.currentTimeMillis() % 1000;
 		random = new java.util.Random( seed );
-		bugs = new ArrayList<Bug>();
-		int initialBugCount = size.height * size.width
-                / (InitialPixelsBetweenBugs * InitialPixelsBetweenBugs);
-        // panel size can be broken when run in browser
-        if (size.height <= 0 || size.width <= 0) initialBugCount = 20;
-        //System.out.println("\n" + size.width + " x " + size.height);
-		if (InitialBugCount > 0) initialBugCount = InitialBugCount;
-        for (int i = 0; i < initialBugCount; i++) {
-            if (initialBugCount > Genotype.getNumFounders()) {
-                new Bug( this );
-            } else {
-                new Bug( this, Genotype.founder( i ));
-            }
-        }
-		joules = new ArrayList<Joule>();
-		int initialJouleCount = (int)(NewJoulesPerTurnPerPixel * size.width * size.height * 2000);
-        for (int i = 0; i < initialJouleCount; i++) {
-        	add( new Joule( this )); // TODO Joule should add self to world
-        }
-        // Genotype2 species = Genotype2.getRandomGenotype( random );
-        // System.out.println( species.toString( "\n" ) );
-        /*
-        Point loc = new Point( 2.0, 3.5 );
-        System.out.println( loc.toString() );
-        Point loc2 = Point.parse( loc.toString() );
-        System.out.println( loc2.toString() );
-        */
 	}
-	
+
+	public void loadRandomBugs() {
+        int initialBugCount = height * width / PixelsPerInitialBug;
+        // panel size can be inaccurate when run in browser
+        if (height <= 0 || width <= 0) initialBugCount = 20;
+        for (int i = 0; i < initialBugCount; i++) {
+            new Bug( this );
+        }	    
+	}
+
+    public void loadFounderBugs() {
+        for (Genotype founderSpecies : Genotype.getFounders()) {
+            new Bug( this, founderSpecies);
+        }       
+    }
+
 	public static void initProperties() {
 		if (props != null) return;
 		props = new Properties();
@@ -332,7 +319,7 @@ public class World extends Observable {
     	double probabilityOfANewPlankton = NewPlanktonPerTurnPerPixel * width * height;
         double dice = random.nextDouble();
         if (dice < probabilityOfANewPlankton) {
-            Bug newBug = new Bug( this );
+            new Bug( this );
         }
     	if (cycle % World.GarbageCollectionFreq == 0) System.gc();
     	while (nextBugCycle()) {}
