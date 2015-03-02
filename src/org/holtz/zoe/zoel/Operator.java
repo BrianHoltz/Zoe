@@ -96,13 +96,6 @@ public enum Operator {
 	Print,
 	// ----- Flow Control
 	/**
-	 * Use the string value of Stack.0 as the label to call.
-     * Search upward in the syntax tree for an ExpressionList with the same label,
-     * or with an immediate child ExpressionList with that label,
-     * and evaluate the labeled ExpressionList.
-	 */
-	Call,
-	/**
 	 * If Stack.0 is true (nonzero/nonempty), evaluate arg.  If stack top is not true and
 	 * the next Statement is Else, then skip the Else.
 	 */
@@ -115,6 +108,16 @@ public enum Operator {
 	 * While Stack.0 is true (nonzero/nonempty), evaluate arg.
 	 */
 	While,
+    /**
+     * Evaluate the When code with the label matching the operand (or Stack.0 if
+     * no operand)
+     */
+    When,
+    /**
+     * Evaluate the Do code with the label matching the operand (or Stack.0 if
+     * no operand)
+     */
+    Do,
 	// ----- Stack & Heap
 	/**
 	 * Push the arg onto the stack. The stack size is limited to a function of bug age, so
