@@ -47,7 +47,6 @@ public class Bug extends ZObject implements ZoelVMHost {
     private int            lastCycleLooked;
     private double         massEnergyAfterLastTurn;
     private double         bittenSinceLastTurn;
-    private Literal        mood           = new Number( 0 );
     /**
      * Bug's memory, shared across all Phenes
      */
@@ -365,6 +364,7 @@ public class Bug extends ZObject implements ZoelVMHost {
     }
 
     private Bug spawn(double multipleOfMinInvestment) {
+        // TODO push child ID onto stack, or zero
         if (World.SuppressAllBirths) return null;
         double strength2Invest = multipleOfMinInvestment * minNewbornEnergy();
         if (strength2Invest > strength) return null;
@@ -579,8 +579,6 @@ public class Bug extends ZObject implements ZoelVMHost {
                 return new StringLiteral( genotype.birthPlace.toString() );
             case Species:
                 return new Number( this.genotype.id );
-            case Mood:
-                return mood;
             case Pain:
                 double massEnergyNow = mass() + strength;
                 //System.out.println( "now: " + String.format( "%4.2f", massEnergyNow )
@@ -652,9 +650,6 @@ public class Bug extends ZObject implements ZoelVMHost {
                 break;
             case Mate:
                 if (mate() == null) return ZoelVM.Turn.Continues;
-                break;
-            case Mood:
-                mood = operand;
                 break;
             case SenseFarther:
                 if (lastSensed == null) {

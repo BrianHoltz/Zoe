@@ -21,10 +21,9 @@ public enum Register {
 	BirthLocation,
 	AncestralLocation,
     Species,
-	Mood,
-	/**
-	 * -100 <= HealthSlope <= 100 : percent change in total mass-energy from end of previous turn
-	 */
+    /*
+     * True iff bitten since last turn and strength is lower
+     */
 	Pain,
 	// All below invoke a look()
 	FeelSomething,
@@ -38,7 +37,7 @@ public enum Register {
 	IsLastMate,
 	IsAncestor,
 	IsDescendent,
-	// All below have the same value for both bugs
+	// All below have the same value for both Me and It
 	IsSameSpecies,
 	IsFamily,
 	Range;
