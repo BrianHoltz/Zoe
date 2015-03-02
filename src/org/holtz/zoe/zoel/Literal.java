@@ -6,6 +6,7 @@ package org.holtz.zoe.zoel;
  * @author Brian Holtz
  */
 public abstract class Literal extends Value {
-	public abstract boolean isTrue();
-	public abstract double toNumber();
+    public abstract boolean isTrue();
+    public abstract double toNumber();
+    public abstract int toInteger();
 }

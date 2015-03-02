@@ -44,4 +44,9 @@ public class Number extends Literal {
 	public double toNumber() {
 		return val;
 	}
+
+    @Override
+    public int toInteger() {
+        return (int)Math.round( val );
+    }
 }

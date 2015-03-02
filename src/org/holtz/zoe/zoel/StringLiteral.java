@@ -6,45 +6,51 @@ package org.holtz.zoe.zoel;
  * @author Brian Holtz
  */
 public class StringLiteral extends Literal {
-	public String val;
-	
-	public StringLiteral( String theVal ) {
-		val = theVal;
-	}
+    public String val;
 
-	public StringLiteral( StringLiteral obj2Copy ) {
-		val = obj2Copy.val;
-	}
-	
-	@Override
-	public StringLiteral copy() {
-		return new StringLiteral( this );
-	}
-	
-	@Override
-	public String toString(String statementSeparator, Expression currExpr, String cursor) {
-		return '"' + val + '"';
-	}
+    public StringLiteral(String theVal) {
+        val = theVal;
+    }
 
-	@Override
-	public boolean isTrue() {
-		return val != null && val.length() > 0;
-	}
+    public StringLiteral(StringLiteral obj2Copy) {
+        val = obj2Copy.val;
+    }
 
-	@Override
-	public String toString() {
-		return val;
-	}
+    @Override
+    public StringLiteral copy() {
+        return new StringLiteral(this);
+    }
 
-	@Override
-	public double toNumber() {
-	    try {
-	        return Double.parseDouble( val );
-	    } catch (NumberFormatException ex) {
-	        return 0;
-	    }
-	}
-	
+    @Override
+    public String toString(String statementSeparator, Expression currExpr,
+        String cursor) {
+        return '"' + val + '"';
+    }
+
+    @Override
+    public boolean isTrue() {
+        return val != null && val.length() > 0;
+    }
+
+    @Override
+    public String toString() {
+        return val;
+    }
+
+    @Override
+    public double toNumber() {
+        try {
+            return Double.parseDouble(val);
+        } catch (NumberFormatException ex) {
+            return 0;
+        }
+    }
+
+    @Override
+    public int toInteger() {
+        return (int)Math.round( toNumber() );
+    }
+
     public static StringLiteral parse( ZoelTokenizer zoelTokenizer ) throws Exception {
         switch (zoelTokenizer.nextToken()) {
             case ZoelTokenizer.TT_NUMBER:
