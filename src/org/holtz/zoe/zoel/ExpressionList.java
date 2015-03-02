@@ -12,7 +12,6 @@ public class ExpressionList extends Expression {
     public static final boolean NoActionOperators = false;
     
 	private ArrayList<Expression> expressions = new ArrayList<Expression>();
-	public String label;
 
 	public ExpressionList() {
 	}

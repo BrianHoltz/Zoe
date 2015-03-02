@@ -22,7 +22,7 @@ public class LabelReference extends Value {
 	public String toString(String statementSeparator, Expression currExpr, String cursor) {
 		String msg = "@";
 		if (val == null) return msg + "null";
-		return msg + val.label;
+		return msg;
 	}
 
 	@Override
