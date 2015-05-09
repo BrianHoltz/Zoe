@@ -4,3 +4,14 @@
 *.jar
 *.war
 *.ear
+.DS_Store
+.classpath
+.idea/
+.metadata/
+.project
+.settings/
+Zoe.iml
+Zoe.zip
+bin/
+doc/
+out/
