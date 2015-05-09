@@ -1,0 +1,1355 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta content="text/html; charset=windows-1252"
+      http-equiv="Content-Type">
+    <title>Zoe</title>
+  </head>
+  <body>
+    <h1 align="center">ALife Taxonomy</h1>
+    <ul>
+    </ul>
+    <h1>Turing-Complete Behavioral Genome</h1>
+    <h2>Non-Mutagenic Shared Memory<br>
+    </h2>
+    <h3><a
+        href="http://en.wikipedia.org/wiki/Darwin_%28programming_game%29">Darwin</a>
+      (Vyssotsky et al., 1961)</h3>
+    <ul>
+      <li>Core War predecessor, for IBM 7090 mainframe.</li>
+    </ul>
+    <h3><a href="http://en.wikipedia.org/wiki/Creeper_%28program%29">Creeper</a>
+      (Thomas, 1971)</h3>
+    <ul>
+      <li>First computer virus. For PDP-10 mainframe. Inspired Core War.<br>
+      </li>
+    </ul>
+    <h3><a href="http://www.corewars.org/">Core War</a> (Jones &amp;
+      Dewdney, 1984-)<br>
+    </h3>
+    <ul>
+      <li>Programs written in assembly-like Redcode compete to make
+        copies of themselves in shared memory.</li>
+    </ul>
+    <h2>Mutagenic Shared Memory</h2>
+    <ul>
+    </ul>
+    <h3><a href="http://dl.acm.org/citation.cfm?id=114395">VENUS/Coreworld</a>
+      (Rasmussen, 1990)</h3>
+    <ul>
+      <li>"VENUS is a modification of Core Wars in which the Computer
+        programs can mutate, thus the pseudo assembler code creatures of
+        VENUS evolve steadily.&nbsp; Furthermore each&nbsp; memory
+        location is endowed with "resources" which, like sunshine are
+        added at a steady state."</li>
+      <li>"The core simulator in the present version has one dimension,
+        is updated in parallel, the instructions are only able to
+        communicate locally, and the system is continuously subjected to
+        noise. The system also has a notion of local computational
+        resources. We see different evolutionary paths depending on the
+        specified parameters and the level of complexity, measured as
+        distance from initially randomized core. For several initial
+        conditions the system is able to develop extremely viable
+        cooperative structures (organisms?) which totally dominate the
+        core. We have been able to identify seven successive
+        evolutionary epochs each characterized by different functional
+        properties."<br>
+      </li>
+    </ul>
+    <h3><a
+        href="http://en.wikipedia.org/wiki/Tierra_%28computer_simulation%29">Tierra</a>
+      (Ray, 1991-2004)<br>
+    </h3>
+    <ul>
+      <li>Core Wars-style assembly language programs in a 1-D memory</li>
+    </ul>
+    <h3><a href="http://adam.ierymenko.name/nanopond.shtml">Nanopond</a>
+      (Lerymenko, 2005-2008)<br>
+    </h3>
+    <ul>
+      <li>"Nanopond is a corewar-style evolvable instruction set based
+        virtual machine written in C. It is similar in design to Tierra
+        and Avida but considerably smaller and simpler."</li>
+    </ul>
+    <h2>Protected Memory<br>
+    </h2>
+    <h3><a href="http://holtz.org/Vita/Vita.outline">Vita</a> (Holtz,
+      1991-1994)<br>
+    </h3>
+    <ul>
+      <li>VitaL: pcode-like stack-based language incl. Graze, Bite,
+        Move, Fork, Turn, Look, Feel</li>
+      <li>Apparently first ALife with protected memory or data stack<br>
+      </li>
+    </ul>
+    <h3><a href="http://avida.devosoft.org/">Avida</a> (Ofria, 1993-)<br>
+    </h3>
+    <ul>
+      <li>"Every digital organism lives in its own protected region of
+        memory, and is executed by its own virtual CPU. By default,
+        other digital organisms cannot access this memory space, neither
+        for reading nor for writing, and cannot execute code that is not
+        in their own memory space."</li>
+    </ul>
+    <h3><a
+href="https://web.archive.org/web/20110202222215/http://www.stauffercom.com/evolve4/">Evolve
+
+
+
+
+
+
+
+
+
+
+
+
+        4.0</a> (Stauffer, 1996-2006)<br>
+    </h3>
+    <ul>
+      <li> "A mixture of Conway's LIFE and Core Wars. Each organism has
+        a genetic program which controls its behavior. The program has
+        all the normal types of instructions you would expect from a
+        programming language: flow control, arithmetic, subroutines, and
+        so on. But, there are also special primitives for interacting
+        with the universe. Such as EAT, LOOK, GROW, MOVE, MAKE-SPORE."</li>
+      <li>"All KFORTH programs are compiled into a tabular
+        representation. Each element of the table is either a number or
+        an instruction. Each row is called a "code block". The first row
+        is special because this is where execution always starts. A
+        KFORTH program begins executing at (0, 0) (code block 0, program
+        counter 0). If the table element contains a number, it is pushed
+        on the data stack, otherwise the instruction is executed."</li>
+      <li>"Mutations operate on this tabular structure. A simple
+        mutation is to pick two random entries and swap them. Or two
+        random rows can be swapped. etc...&nbsp; Any weird and wacky
+        random transformation to this table will result in valid KFORTH
+        program. During sexual reproduction two genetic programs are
+        combined. We accomplish this by interlacing code blocks from the
+        first parent with the second parent."<br>
+      </li>
+    </ul>
+    <pre style="margin-left: 80px;"><small>main:
+{
+	1 0 GROW -1 = LeafCell if
+	brain call
+}
+LeafCell:
+{
+   1 0 EAT pop
+   -1 -1 EAT pop
+   1 ?loop
+}
+brain:
+{
+  ; ... creature brain goes here ...
+}</small></pre>
+    <h3> <span class="st"><a
+          href="http://www.tim-taylor.com/papers/thesis/thesis.pdf">Cosmos</a>
+        (Taylor, 1999)</span></h3>
+    <ul>
+      <li>Genome is a bit string, transcribed 6 bits at a time into
+        REPLICa, a Tierra-like assembly language.</li>
+      <li>Genome lives in protected memory, but genome program must copy
+        itself into "nucleus working memory" to make child's copy.</li>
+      <li>Simulation is seeded with self-reproducing ancestor genomes.
+        Copy-loop fragment:<br>
+      </li>
+      <ul>
+        <li>mov_ic</li>
+        <li>if_not_fl</li>
+        <li>nwm_write</li>
+        <li>if_fl</li>
+        <li>clr_jmp</li>
+        <li>jmp</li>
+      </ul>
+    </ul>
+    <h3><span style="font-weight: bold;"><a
+          href="http://www.spiderland.org/breve/">Breve</a> (Klein,
+        2002-2008)<br>
+      </span></h3>
+    <ul>
+      <li>"<a href="http://faculty.hampshire.edu/lspector/push.html">Push</a>
+        is a programming language designed for evolutionary computation,
+        to be used as the programming language within which evolving
+        programs are expressed."</li>
+      <ul>
+        <li><tt>( 2 3 INTEGER.* 4.1 5.2 FLOAT.+ TRUE FALSE BOOLEAN.OR )</tt><tt><br>
+          </tt>Execution of this code leaves the relevant stacks in the
+          following states:<tt><br>
+          </tt><tt>BOOLEAN STACK: ( TRUE )</tt><tt><br>
+          </tt><tt>CODE STACK: ( ( 2 3 INTEGER.* 4.1 5.2 FLOAT.+ TRUE
+            FALSE BOOLEAN.OR ) )</tt><tt><br>
+          </tt><tt>FLOAT STACK: ( 9.3 )</tt><tt><br>
+          </tt><tt>INTEGER STACK: ( 6 )</tt><br>
+        </li>
+      </ul>
+      <li>"Users define the behaviors of agents in a 3D world and
+        observe how they interact. breve includes physical simulation
+        and collision detection so you can simulate realistic creatures,
+        and an OpenGL display engine so you can visualize your simulated
+        worlds"</li>
+    </ul>
+    <h3><a href="http://wiki.darwinbots.com/w/Main_Page">Darwinbots</a>
+      (Comis, 2003-)<br>
+    </h3>
+    <ul>
+      <li>Darwinbots simulates <span class="mw-redirect">genes</span>
+        that control the behavior of an individual "bot". Each gene has
+        a trigger for its activation, a body that dictates gene
+        function, and an end marker.</li>
+      <li>All bots have their own semi-protected address space.</li>
+      <li>All bots execute their <i>entire</i> DNA code once per cycle,
+        rather than a single code being activated per cycle.</li>
+      <li>Example DNA<br>
+      </li>
+    </ul>
+    <pre style="margin-left: 80px;"><small>' Gene 1 Food Finder
+cond
+ *.eye5 0 &gt;
+ *.refeye *.myeye&nbsp;!=
+start
+ *.refveldx .dx store
+ *.refvelup 30 add .up store
+stop
+' Gene 2 Eat Food
+cond
+ *.eye5 50 &gt;
+ *.refeye *.myeye&nbsp;!=
+start
+-1 .shoot store
+ *.refvelup .up store
+stop
+' Gene 3 Avoiding Family
+cond
+ *.eye5 0 =
+ *.refeye *.myeye = or
+start
+ 314 rnd .aimdx store
+stop
+' Gene 4 Reproduce
+cond
+ *.nrg 20000 &gt;
+start
+ 10 .repro store
+stop
+end</small></pre>
+    <h3><a href="http://stormyprods.com/alife/"><b>Artifical Life</b></a>
+      (Stormont, 2009-)</h3>
+    <h3> </h3>
+    <ul>
+      <li>10 "chromosomes" per organism. Each chromosome is an if-then
+        rule:<br>
+      </li>
+      <ul>
+        <li>If nearest (protozoa food hiding-spot predator scavenger
+          relative foreigner) &lt;&gt; X away<br>
+        </li>
+        <li>Then (eat find-mate hide sleep attack goto avoid)</li>
+        <li>Thus technically not Turing-complete<br>
+        </li>
+      </ul>
+      <li>Sex gives 5 chromosomes from each parent</li>
+      <li>Universe-enforced life span, min/max population</li>
+      <li>$0.99 on iOS App Store. Est. 49K downloads in Feb 2015.<br>
+      </li>
+    </ul>
+    <h3><a href="http://holtz.org/Zoe/">Zoe</a> (Holtz, 2010-)</h3>
+    First ALife with call stack? cf. Evolve 4.0<br>
+    <h3><a href="http://sourceforge.net/projects/evoversum/">Evoversum</a>
+      (Bazant, 2011-)</h3>
+    <ul>
+      <li>"focused solely on evolution of behaviour -- all the organisms
+        have identical bodies. There are no fundamental limits on the
+        complexity of their behaviour."</li>
+      <li>Each gene is a list of numbers, which represent programming
+        instructions (how?)</li>
+      <li>Each organism has a memory: an array of numbers</li>
+    </ul>
+    <h3><a
+href="http://www.academia.edu/5925227/Digital_Organism_Simulation_Environment_DOSE_A_Library_for_Ecologically-Based_In_Silico_Experimental_Evolution">DOSE</a>
+      (Castillo, 2012-)<br>
+    </h3>
+    <ul>
+      <li>"DOSE consists of a biological hierarchy of genetic sequences,
+        organism,&nbsp; population, and ecosystem. A 3-character
+        instruction set that does not take any operand is used as
+        genetic code for digital organism, which the 3-nucleotide codon
+        structure in naturally occurring DNA. The evolutionary driver is
+        simulated by a genetic algorithm."</li>
+      <li>We "formalized a 3-character genetic language to correspond
+        the 3-nucleotide codon in naturally occurring DNA and
+        incorporating a 3-dimensional “world” consisting of ecological
+        cells in order to give it parallels to biological DNA and
+        natural ecosystem."<br>
+      </li>
+      <li><a href="http://maurice.vodien.com/project-dose/">Documentation</a><br>
+      </li>
+    </ul>
+    <ul>
+    </ul>
+    <ul>
+    </ul>
+    <ul>
+    </ul>
+    <h1>Turing-Incomplete Behavioral Genome</h1>
+    <h2>Neural Networks</h2>
+    <h3><a href="http://en.wikipedia.org/wiki/Polyworld"><span
+          style="font-weight: bold;">Polyworld</span></a> (Yaeger,
+      1990-)<br>
+    </h3>
+    <ul>
+      <li>"Each individual makes decisions based on a <span
+          class="mw-redirect">neural net</span> using <span
+          class="mw-redirect">Hebbian learning</span>; the neural net is
+        derived from each individual's genome. The genome does not
+        merely specify the wiring and weighting of the neural nets, but
+        also determines their size, speed, color, mutation rate"</li>
+      <li>2010:
+        <meta http-equiv="content-type" content="text/html;
+          charset=windows-1252">
+        Agents can now pick up, carry, and drop all other objects
+        (including each other)</li>
+      <li>2010:
+        <meta http-equiv="content-type" content="text/html;
+          charset=windows-1252">
+        Agents can now give and receive energy to/from each other and
+        contacts may be logged to investigate altruism</li>
+    </ul>
+    <h3><a href="http://www.karlsims.com/evolved-virtual-creatures.html">Evolved
+
+
+
+
+
+
+
+
+
+
+
+        Virtual Creatures</a> (Sims, 1994)</h3>
+    <ul>
+      <li> "Each creature is tested for their ability to perform a given
+        task, such the ability to swim in a simulated water environment.
+        Those that are most successful survive, and their virtual genes
+        containing coded instructions for their growth, are copied,
+        combined, and mutated to make offspring"</li>
+      <li>The “nervous systems” of creatures are also completely
+        determined by the optimization: the number of internal nodes,
+        the connectivity, and the type of function each neural node
+        performs are included in the genetic description of each
+        creature, and can grow in complexity as an evolution proceeds.</li>
+      <li>The set of functions that neural nodes can have is: sum,
+        product, divide, sum-threshold, greater-than, sign-of, min, max,
+        abs, if, interpolate, sin, cos, atan, log, expt, sigmoid,
+        integrate, differentiate, smooth, memory, oscillate-wave, and
+        oscillate-saw</li>
+    </ul>
+    <h3><a
+href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.1.7066&amp;rep=rep1&amp;type=pdf">LEE</a>
+      (Menczer, 1996)<br>
+    </h3>
+    <ul>
+      <li>Latent Energy Environments</li>
+      <li>We use a well-studied type of neural network as our
+        computational model of an organism's brain. The signals from
+        each sensor are used as the inputs to a feed-forward neural
+        network with one or more hidden layer of units, and the neural
+        net's output units are used to control the motors. The network
+        mapping sensory states to motor actions is part of an organism’s
+        genome and thus evolves by selection and mutations of the neural
+        net’s connection weights, represented as real numbers."<br>
+      </li>
+    </ul>
+    <ul>
+    </ul>
+    <ul>
+    </ul>
+    <h3><a href="http://www.nobleape.com/">Noble Ape</a> (Barbalet,
+      1996-)</h3>
+    <ul>
+      <li> Four diploid chromosomes, each consisting of 32bits with 2
+        bits per base</li>
+      <li> "Gene values corresponding to, or influencing, phenotypic
+        traits are extracted from the genome by taking pairs of bases
+        from different locations and joining them together to make a
+        single 4 bit value. The locations for the two bases are not
+        necessarily sequential and are specified by <em>regulator genes</em>
+        in separate areas of the genome. This means that phenotypes are
+        a product of a web of inter-connected genes, and that an
+        alteration in one gene might also have cascading effects upon
+        others, resulting in non-trivial dynamics over successive
+        generations."</li>
+      <li>Behavior genes: groom, aggression, speed, stagger, swim,
+        climb, metabolic rate</li>
+      <li>Mating genes: status, pigment, height, size, hair, seek, bond,
+        incest</li>
+      <li>Sensors and actuators interact in something like a neural
+        network</li>
+      <ul>
+        <li>Or, apes can be scripted via non-evolvable Turing-complete
+          ApeScript</li>
+      </ul>
+      <li>Drives: Hunger, Fatigue, Sex, Social</li>
+      <li>Social graph: Friends, Enemies</li>
+      <li>Body actions: jab, bash, chew, brandish, drag, drop, pickup</li>
+      <li>Social actions: prod, hug, smile, glower, tickle, point, pat,
+        bash, give<br>
+      </li>
+      <li>Inventory: scaper, branch, spear, nut, nut_cracked, twig,
+        fish, bird_eggs, lizard_eggs, ...</li>
+      <li>Metabolism: vegetables, fruit, shellfish, seaweed</li>
+    </ul>
+    <h3><a
+        href="http://theoeco.fc.ul.pt/publications/Gracias_1997_ALifeV.pdf">Gaia</a>
+      (Gracias, 1997)</h3>
+    <ul>
+      <li>"The genes that make up the neural network representation are:
+        number of internal neuron areas, number of neurons in each
+        internal area, initial bias in each neuron area, bias learning
+        rate for each neuron area, connection density between each pair
+        of neuron areas, topological distortion between each pair of
+        neuron areas, learning rate between each pair of areas."</li>
+    </ul>
+    <h3> <a href="http://www.channon.net/alastair/">Geb</a> (Channon,
+      1998-2011)</h3>
+    <ul>
+      <li>2001: "Passing the ALife test: Activity statistics classify
+        evolution in Geb as unbounded"</li>
+      <li>Five actuators: turn (anti)clockwise, move, fight, reproduce</li>
+      <li>Neural network to control behavior</li>
+      <li>Genome is bitstring interpreted as production rules<br>
+      </li>
+      <li>"In every run to date, the first dominant species that emerges
+        has been one whose individuals turn<br>
+        in one direction while trying to fight and reproduce at the same
+        time."</li>
+      <li>"Other organisms tend not to last long; almost any movement
+        will bring them into contact with one of the dominant organisms,
+        helping that species in its reproduction as much as themselves.
+        However, they can make some progress. Individuals have emerged
+        that are successful at turning to face members of the dominant
+        species and holding their direction while trying to kill and
+        reproduce."</li>
+    </ul>
+    <h3><a href="http://www.bpp.com.pl/bitozoa2/bitozoa2.html">Bitozoa</a>
+      (Borkowski, 2000-2002)</h3>
+    <ul>
+      <li>Bitozoon has eyes, neural network for brain and two flagella.
+        Signal from the eyes is used as an input to the neural network.
+        Output from the neural network fires flagella thus moves
+        bitozoon.&nbsp; If a carnivore stamina level is high enough
+        carnivore will eat herbivore. If the stamina level is too low
+        carnivore will die trampled by herbivore. When bitozoon has too
+        much stamina it will breed asexually. Its stamina is divided
+        evenly between two identical animals.</li>
+      <li>Every bitozoon is described by a bunch of numbers that
+        determine its behavior and details of anatomy. All those numbers
+        can not be changed in a life time of an animal. Every bitozoon
+        inherits those numbers from both parents in a random way. At the
+        breed time any parameter can be changed by mutation. This
+        includes number of neurons and topology of the neural network.</li>
+      <li>Neural network has a variable number of neurons and a variable
+        topology. Every neuron has five inputs and one output. Network
+        does not have a layered structure - every neuron can be
+        connected with every other, it can be even connected with its
+        own output. Network does not have to use all input values and
+        all neurons output. Topology and weights are inherited from both
+        parents and they can be changed at the breeding time, thus
+        five-neuron parents can have a four or six neurons offspring.
+        Neural network weights are not changing in the life span of
+        animals.<br>
+      </li>
+    </ul>
+    <ul>
+    </ul>
+    <h3><a
+        href="http://link.springer.com/chapter/10.1007%2F3-540-45502-7_5">SAGA</a>
+      (Harvey, 2001)</h3>
+    <ul>
+      <li>"I then discuss some shortcomings in many of the basic
+        assumptions of the orthodox Genetic Algorithm (GA) community,
+        and give a rather different perspective. The basic principles of
+        SAGA (Species Adaptation GAs) will be outlined, and the concept
+        of Neutral Networks, pathways of level fitness through a fitness
+        landscape will be introduced."<br>
+      </li>
+    </ul>
+    <ul>
+    </ul>
+    <ul>
+    </ul>
+    <h3><a href="http://en.wikipedia.org/wiki/Critterding">Critterding</a>
+      (
+      <meta http-equiv="content-type" content="text/html;
+        charset=windows-1252">
+      Winckelmans, 2005-2013)</h3>
+    <ul>
+      <li>
+        <meta http-equiv="content-type" content="text/html;
+          charset=windows-1252">
+        Critters try to survive by developing a form of locomotion, find
+        food and reproduce. Critters are made up of two types of body
+        parts which are linked together by joints. The head, coloured
+        red, is where the vision and mouth is located. The body segments
+        are used for locomotion and display the colour of the critter.
+        On an initial run, random seed critters are generated in a food
+        rich environment, eventually a seed critter is generated that is
+        able to eat and reproduce before dying. The new offspring have a
+        chance to receive a mutation to either the body or neural
+        network.</li>
+    </ul>
+    <h3>(Pichler, <a
+href="http://researchprofiles.herts.ac.uk/portal/services/downloadRegister/422248/901079.pdf">2007</a>-<a
+href="https://mitpress.mit.edu/sites/default/files/titles/alife/0262287196chap62.pdf">2008</a>)<br>
+    </h3>
+    <ul>
+      <li>"Evolve complete agents where all higher-level behavior
+        results strictly from the interplay between extremely simple
+        components and where no ‘behavior primitives’ are defined"</li>
+      <li>Previous "models resemble each other in that the agents adapt
+        to choose from a predetermined and discrete set of behavior
+        primitives which are assumed to be relevant for survival (e.g.
+        eating, mating, fighting, moving, turning). This forces the
+        designer of the system to explicitly decide what actions are
+        available and possibly restricts the nature in which they are
+        implemented by the agents.&nbsp; In our model, actuation is
+        solely based on movement and reproductive investment. More
+        complex behaviors (e.g. obstacle avoidance, fighting, foraging)
+        are phenomena arising from the interplay between agents and
+        environment. We are interested in what strategies arise and how
+        they are implemented by low-level interactions of the agent
+        components and its environment in the absence of pre-specified
+        behavior primitives."</li>
+      <li>"Note that in many neuroevolution scenarios neural network
+        topologies are evolved to fit specific input and output
+        structure (sensors and actuators). In this model the function
+        and structure of the sensory and actuation systems are
+        completely under evolutionary control. Variability
+        operatorsduring reproduction may modify all parameters of
+        existing structure and can also add or remove components
+        (sensors, actuators, hidden layers, nodes, and connections) to
+        form arbitrary recurrent networks."<br>
+      </li>
+    </ul>
+    <ul>
+    </ul>
+    <h3><a href="http://en.wikipedia.org/wiki/EcoSim">EcoSim</a> (Gras,
+      2009)</h3>
+    <ul>
+      <li>An individual's genomic data codes for its behavioral model
+        and is represented by a fuzzy cognitive map (FCM). The FCM
+        contains sensory concepts such as foodClose or predatorClose,
+        internal states such as fear or hunger, and motor concepts such
+        as escape or reproduce. The FCM is represented as an array of
+        floating-point values which represent the extent to which one
+        concept influences another. For example, it would be expected
+        that the sensory concept predatorClose would positively affect
+        the internal concept fear, which would then positively affect
+        the escape motor concept. These relationships among concepts
+        evolve over time, sometimes giving a new meaning to a concept.
+        Furthermore, the FCM is heritable, meaning that a new agent is
+        given an FCM which is a combination of that of its parents with
+        possible mutations.</li>
+      <li>The FCM contains sensitive concepts such as: predatorClose,
+        foodClose, mateClose, energyLow; internal concepts such as:
+        fear, hunger, sexual need, curiosity, satisfaction; and motor
+        concepts such as: escape, searchForFood, socialize, eat, breed.
+        It includes also weighted links representing the mutual
+        influences of these concepts. [<a
+href="https://mitpress.mit.edu/sites/default/files/titles/alife/0262297140chap45.pdf">ALife
+
+
+
+
+
+
+
+
+          IX</a>]</li>
+    </ul>
+    <h3><a href="http://en.wikipedia.org/wiki/Framsticks"><span
+          style="font-weight: bold;">Framsticks</span></a> (Komosinski,
+      2009)</h3>
+    <ul>
+      <li>Creatures use neural network brains.</li>
+      <li>Genome tells how to build the creature's stick-like structure.<br>
+      </li>
+      <li>"Genetic codes are interpreted as instructions to cells. A
+        genotype describes the developmental process of an organism.
+        Development starts with a single ancestor cell, which starts to
+        execute instructions from the start of the genetic code. As the
+        cell divides, new cells are created, which execute different
+        instructions in parallel (differentiation). The development
+        stops when all cells mature, and the final shape of the creature
+        is the result of the whole development process."</li>
+      <li>"A study of evolution capabilities of creatures in simplified
+        Earth-like conditions. They are: a three-dimensional
+        environment, genotype representation of organisms, physical
+        structure (body) and neural network (brain) both described in
+        genotype, stiumuli loop (environment – receptors – brain –
+        effectors – environment), genotype reconfiguration operations
+        (mutation, crossing over, repair), energetic requirements and
+        balance, and specialization."<br>
+      </li>
+      <li>"A three-dimensional environment, genotype representation of
+        organisms, physical structure (body) and neural network (brain)
+        both described in genotype, stiumuli loop (environment –
+        receptors – brain – effectors – environment), genotype
+        reconfiguration operations (mutation, crossing over, repair),
+        energetic requirements and balance, and specialization".</li>
+    </ul>
+    <h3><a
+href="http://www.atheistnexus.org/profiles/blogs/neural-bots-an-experiment-in?xg_source=activity"><b>Neural
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          Bots</b></a> (Cubitt, 2010)</h3>
+    <ul>
+      <li>Yet another PolyWorld-like neural-network-plus-vision
+        bug-hunting-bug simulator</li>
+      <li>"The final step was the creation of an artificial 2D world
+        (and I did it in less than seven days) populated by the little
+        fish-like bots, each with their own ANN "brain". The primary
+        input to the brain comes from a pair of compound eyes, each
+        consisting of 192 "photo-sensors" - 64 each for red, green and
+        blue."<br>
+      </li>
+    </ul>
+    <ul>
+    </ul>
+    <ul>
+    </ul>
+    <ul>
+    </ul>
+    <h3><a
+href="https://mitpress.mit.edu/sites/default/files/titles/alife/0262290758chap79.pdf">EVO</a>
+      (Chaumont, 2010)<br>
+    </h3>
+    <h3> </h3>
+    <ul>
+      <li>"The population consists of three-dimensional, autonomously
+        foraging, blocky creatures with sensory-motor capabilities that
+        are controlled with a neural network, coexist in the world,<br>
+        and compete for its resources. In this implementation they
+        reproduce asexually, and the genome that codes for its
+        morphology and behavior (via the neural network that controls
+        its motions) undergoes mutations during reproduction. The world
+        in which the creatures live is a three- dimensional, physically
+        simulated environment where energy resources are continuously
+        replenished, decay, and eventually absorbed by foragers.
+        Creatures die if their energy is depleted, and are born from a
+        parent that has accumulated enough energy to reproduce. There is
+        no explicit fitness function in this system; however since poor
+        foragers quickly die out, we witness a strong selective pressure
+        to pass on genes for increasingly sophisticated foraging
+        behavior to the offspring."</li>
+      <li>"We included several types of food sources placed at varying
+        heights on pedestals, in addition to food sources distributed at
+        ground level."<br>
+      </li>
+      <li>"A world with three types of resources (green, red, and blue
+        spheres) that require different morphologies or behaviors
+        access. 3D organisms are yellow. In the inset, a virtual
+        creature is toppling a pedestal to reach a red resource
+        sphere.The blue resources are on inclines and require a form of
+        locomotion that can counteract the low friction of the surface.
+        Standard organisms cannot climb this incline."</li>
+    </ul>
+    <ul>
+    </ul>
+    <ul>
+    </ul>
+    <h3><a href="https://sites.google.com/site/scriptbotsevo/"><b>ScriptBots</b></a><b>
+        (Karpathy, 2010-)</b><a
+        href="https://sites.google.com/site/scriptbotsevo/"><b><br>
+        </b></a></h3>
+    <ul>
+      <ul>
+      </ul>
+      <li>20 input sensors, 9 output actuators</li>
+      <li>Bots can specialize in processing plant food or meat</li>
+      <li>Bots can hunt each other, can communicate by flashing colors
+        and shouting</li>
+      <li>Bots can choose to share food with each other</li>
+      <li>Both sexual and asexual reproduction</li>
+      <li>When a bot dies, food is distributed evenly to bots around the
+        event. This leads to emergence of both scavengers and hunting
+        packs.&nbsp;</li>
+    </ul>
+    <ul>
+      <ul>
+      </ul>
+    </ul>
+    <h2>Genetic Algorithms</h2>
+    <h3><a
+href="http://web.archive.org/web/20130605081254/http://tuvalu.santafe.edu/%7Epth/echo/">Echo</a>
+      (Holland, 1994)</h3>
+    <ul>
+      <li> "Echo agents interact via combat, trade and mating and
+        develop strategies to ensure survival in resource-limited
+        environments. Individual genotypes encode rules for
+        interactions. In a typical simulation, populations of these
+        genomes evolve interaction networks which regulate the flow of
+        resources. Resulting networks resemble species communities in
+        ecological systems." </li>
+    </ul>
+    <ul>
+      <ul>
+      </ul>
+    </ul>
+    <h3><b><a href="http://www.ventrella.com/darwin/darwin.html">DarwinPond</a>
+      </b>(Ventrella, 1996-2005)</h3>
+    <ul>
+      <li>Genome consists of 15 numbers:<br>
+      </li>
+      <ul>
+        <li>limbs, segments per limb</li>
+        <li>rate, amplitude, alternate limb flip, straddle</li>
+        <li>3 turning genes</li>
+        <li>joint angle gene</li>
+        <li>3 motion genes</li>
+        <li>base color, color shift</li>
+      </ul>
+      <li>6 mental states: {looking for, pursuing, using} X {food, mate}<br>
+      </li>
+    </ul>
+    <ul>
+      <ul>
+      </ul>
+    </ul>
+    <h3><b><a href="http://www.swimbots.com/">GenePool / SwimBots</a> </b>(Ventrella,
+
+
+
+
+
+
+
+
+
+
+
+      1997-)</h3>
+    <ul>
+      <ul>
+      </ul>
+      <li>"Developed as a derivation of Darwin Pond. Although it has
+        fewer interactive aspects, it extends Darwin Pond in terms of
+        the simulation by emphasizing the effects of sexual selection on
+        morphology and behavior."</li>
+      <ul>
+      </ul>
+      <li>User sets attractiveness criterion: Similar/Opposite Color,
+        Big/Small, Hyper/Still, Long/Short, Straight/Crooked</li>
+      <li>Swimming locomotion evolves as genome controls body
+        segmentation</li>
+    </ul>
+    <h3><a href="http://necrobones.com/bugfest/">BugFest</a> (Toton,
+      1998)</h3>
+    <ul>
+      <li>Species (herbivores, carnivores, omnivores) are
+        system-defined, with system-enforced min/max levels<br>
+      </li>
+      <li>Each of the 6 main stats can be in the range of 1 to 8.<br>
+        STR: Strength; determines how much damage can be done in an
+        attack<br>
+        CON: Constitution; How resistant the bug is to damage<br>
+        DEX: Dexterity; This determines how likely a bug is to hit its
+        opponent, or dodge such an attack<br>
+        INT: Intelligence; Mostly determines success at foraging<br>
+        SPD: Speed; How fast the bug moves<br>
+        VIS: Vision; How far the bug can see.<br>
+      </li>
+    </ul>
+    <ul>
+    </ul>
+    <ul>
+      <ul>
+      </ul>
+    </ul>
+    <h3><a href="http://sourceforge.net/projects/primlife/"><b>Primordial
+
+
+
+
+
+
+
+
+
+
+
+          Life</b></a> (Spofford, c.2001)<br>
+    </h3>
+    <ul>
+      <ul>
+      </ul>
+      <li> "The genetic code consists of 10 segment genes and one trait
+        gene.&nbsp; A line is made up of 1 to 10 segments, and a biot
+        can have 1 to 8 lines."</li>
+      <li>Segment Genes</li>
+      <ul>
+        <li>segment delta height, segment delta width</li>
+        <li>segment color(s)&nbsp;&nbsp;&nbsp; - an array of segment
+          colors, only one can be expressed at a time.</li>
+        <li>period&nbsp;&nbsp;&nbsp; - how often to fire the propulsion
+          segment</li>
+        <li>visible&nbsp;&nbsp;&nbsp; - whether or not this segment is
+          expressed at all</li>
+      </ul>
+      <li>Traits Genes<br>
+      </li>
+      <ul>
+        <li>The default expressed line color (an index into the line
+          gene’s line color array)</li>
+        <li>Color reaction strategy</li>
+        <li>Whether the parent can attack its children</li>
+        <li>Whether the sibling will attack its other siblings</li>
+        <li>When the children are born, whether they stay with the
+          parent, or scatter from it</li>
+        <li>How many children the biot can have at once.</li>
+        <li>How many lines are expressed (each line consists of 1 to 10
+          line genes)</li>
+        <li>Whether or not a biots lines are mirrored (even line counts
+          only)</li>
+        <li>The species identifier (0 - 15)</li>
+        <li>The adult scale (allows a biot to get bigger or smaller, but
+          keeps the same form)</li>
+        <li>The initial rotational offset when it is born.</li>
+        <li>The motion frequency gene, one for each line.</li>
+      </ul>
+    </ul>
+    <h3><a href="http://www.virtual-worlds.net/projects/lifedrop.htm">LifeDrop</a>
+      (Metivier, 2002)</h3>
+    <ul>
+      <li>Genotype: 28 numbers</li>
+      <ul>
+        <li>7 behavioral: # perceivable creatures, perception radius,
+          recognition rate, mating, eating, fleeing, flocking, render</li>
+        <li>structural and morphological genes control segmentation
+          structure</li>
+      </ul>
+    </ul>
+    <h3><a href="http://www.aridolan.com/ofiles/Floys2.aspx">Floys</a>
+      (Dolan, 2004)</h3>
+    <ul>
+      <li>Genetic algorithms for flocking behavior</li>
+      <li>"eFloys genetic algorithm is based on a high-order alphabet,
+        where each location on the chromosome&nbsp; represents a
+        specific trait. At this level, we have only character strings
+        that mean nothing until they are interpreted. The middle layer
+        is the phenotype: Here the information encoded in the genes is
+        translated into behavior, which can be seen in the real world.
+        For example, a specific character in a specific location on the
+        chromosome may define a specific eFloy acceleration. The eFloy
+        movement we see on the screen is influenced by this value."<br>
+      </li>
+    </ul>
+    <h3><a href="https://github.com/rodrigosetti/simvida">SimVida</a>
+      (Setti, 2008)</h3>
+    <ul>
+      <li>"In any gen of the offspring, the mutation can affect
+        everything, from swimming movement, head's size, number of
+        limbs, etc."</li>
+      <li>Genes are numbers encoding body segment plan, reproduction
+        angle, collision angle, energy distribution, head mass, etc.<br>
+      </li>
+    </ul>
+    <ul>
+      <ul>
+        <ul>
+        </ul>
+      </ul>
+    </ul>
+    <ul>
+      <ul>
+      </ul>
+    </ul>
+    <h3><b><a href="http://biogenesis.sourceforge.net/">Biogenesis</a>
+        (Queralt, 2006-2011)<a href="http://biogenesis.sourceforge.net/"><br>
+        </a></b></h3>
+    <ul>
+      <ul>
+      </ul>
+      <li>Inspired by Primordial Life</li>
+      <ul>
+      </ul>
+      <li>Every organism has 4-64 radial segments of various colors<br>
+      </li>
+      <ul>
+        <li>Green: obtain energy from the Sun and the carbon dioxide and
+          release oxygen</li>
+        <li>Red: steal energy from other organisms when they touch</li>
+        <li>Blue: invulnerable to red, white and gray segments</li>
+        <li>Cyan: movement</li>
+        <li>White: they infect the organisms they contact</li>
+        <li>Gray: kills on contact</li>
+        <ul>
+        </ul>
+        <li>Yellow: increase fertility</li>
+      </ul>
+    </ul>
+    <h3><a
+        href="http://en.wikipedia.org/wiki/3D_Virtual_Creature_Evolution">3D
+
+
+
+
+
+
+
+
+
+
+
+
+        Virtual Creature Evolution</a> (Graham, 2008)</h3>
+    <ul>
+      <li> "3DVCE combines a genetic algorithm (GA) with a physics
+        engine and a 3D graphics engine. Each creature is allowed to
+        move about in the virtual world for a fixed amount of time, and
+        is assigned a "fitness" value that reflects its ability to
+        perform some simple task - the distance it travels, for example.
+        A new population of genomes is generated by mutation and
+        crossover (combining the genomes of two creatures to create a
+        hybrid genome)."<br>
+      </li>
+      <li>"Evolve the body plans and control systems of virtual
+        creatures whose bodies were composed of jointed blocks"</li>
+      <li>"Fitness functions include distance traveled, maximum height,
+        average height, 'TOG' (determined by amount of time creature is
+        in contact with ground), and 'Sphere' (determined by creature’s
+        ability to catch and hold spheres)"</li>
+    </ul>
+    <h3><a
+        href="http://www.cc.gatech.edu/home/turk/stickyfeet/index.html">Sticky
+
+
+
+
+        Feet</a> (Turk, 2010)</h3>
+    <ul>
+      <li> "We demonstrate artificial evolution in a system that
+        combines physical simulation with competition between creatures.
+        The simulated creatures are constructed using point masses that
+        are connected by oscillating springs. The creatures pull
+        them-selves across their 2D environment by varying the amount of
+        friction at different point masses, giving them sticky feet.
+        Creatures combat one another, and the victor of such an
+        encounter earns the right to reproduce, possibly with mutation.
+        Rather than testing one individual against another in pairs, as
+        many as 100 creatures move and interact with each other in the
+        same 2D environment. Over time, the initial creatures are
+        replaced by new creatures that are more agile and better at
+        combating others. The evolved creatures from such simulations
+        exhibit a wide array of body plans, locomotion styles, and
+        interaction behaviors." </li>
+      <li>"The possible mutated parameters are segment length, amplitude
+        of oscillation, frequency of oscillation, phase of oscillation,
+        and the magnitude of change that the segment uses to alter the
+        friction of its endpoints." </li>
+    </ul>
+    <ul>
+    </ul>
+    <ul>
+      <ul>
+      </ul>
+    </ul>
+    <h3><a href="http://www.speciesgame.com/"><b>Species</b></a>
+      (Schumacher, 2011-)<br>
+    </h3>
+    <ul>
+      <li>Graphics/physics like Spore, but a simulator not a game.</li>
+      <li>"Genetics are represented by a simple floating point number
+        list. Creature behavior and statistics all come down to
+        equations. Health and energy are represented as scalar values."</li>
+      <li>"very primitive AI: they sort through all the objects in their
+        eyesight range, select the closest one, and approach it. Once
+        they reach the object, they select semi-randomly from the
+        available options for that type of object: eating or ignoring
+        trees and corpses, or attacking, mating, socialising with or
+        ignoring other creatures."</li>
+      <li>"Creatures approach the nearest perceived tree or creature
+        that meets certain hard coded requirements: for example,
+        herbivores won't approach corpses, carnivores won't approach
+        tree's, and no creature will approach tree's too big for them to
+        eat."</li>
+      <li>"Mating works both ways: both creatures inseminate the other,
+        regardless of which one initiated the action. Afterwards, if
+        either creature reproduces, the offspring will have a random mix
+        of both creatures genes."</li>
+    </ul>
+    <ul>
+      <ul>
+      </ul>
+    </ul>
+    <h1>Cellular Automata</h1>
+    <h3><a href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Life</a>
+      (Conway, 1970)</h3>
+    <ul>
+      <li>2-D grid of cells whose alive/dead state is determined at each
+        timestep by the state of neighboring cells</li>
+    </ul>
+    <h3><a href="https://en.wikipedia.org/wiki/Langton%27s_ant">Ant</a>
+      (Langton, 1986)</h3>
+    <ul>
+      <li>a 2-D Turing machine with a very simple set of rules but
+        complicated emergent behavior</li>
+    </ul>
+    <h3><a href="http://www.terminalstudio.com/alife_features.htm">CellFighter</a>
+      (2002)</h3>
+    <ul>
+      <li>Gamification of Conway's Life<br>
+      </li>
+    </ul>
+    <ul>
+    </ul>
+    <h3><span style="font-weight: bold;"><a
+          href="http://www.kyresoo.com/">Gardens of Kyresoo</a>
+        (Timedancer, 2006)<br>
+      </span></h3>
+    <ul>
+      <li>"Each cell operates independently according to the
+        instructions embedded in its genetic code. Cell size, shape,
+        color, interaction with neighboring cells and the environment,
+        all are controlled by expressed proteins. Which are in turn
+        controlled by regulator proteins. The resulting shape of the
+        plant is purely an "emergent" property of the behavior of
+        individual cells. There is no central "blueprint". As far as I
+        know, no other digital simulation has captured this important
+        property of multi-cellular life. "</li>
+    </ul>
+    <h3><a href="http://digihive.pl/">DigiHive</a> ( <span
+        class="reference-text">Sienkiewicz, 2006-2011)<br>
+      </span></h3>
+    <ul>
+      <li> "programs are written in a declarative language (simplified
+        Prolog), which is less vulnerable to small fluctuations"</li>
+      <li>" The environment operates on two levels. On the first level,
+        entities move and collide. Collisions result in rebounding off
+        entities or randomly changing their internal structures. On the
+        second level some structures of entities are capable of inducing
+        specific changes in other entities. Types of the changes are
+        encoded in structures of entities in simplified Prolog
+        language."</li>
+      <li>"complexes of particles are capable to recognize and
+        manipulate other structures of particles around them. The
+        description of function performed by a complex is contained in
+        its internal structure (i.e. types and location of particles
+        inside it). The structure of each complex is then interpreted as
+        a program written in a specially defined Prolog like language."
+      </li>
+    </ul>
+    <h1>Programming Games</h1>
+    <h3>CRobots<br>
+    </h3>
+    <h3>Robocode</h3>
+    <h1>Non-Evolving Simulations<br>
+    </h1>
+    <h3><a
+        href="http://creatures.wikia.com/wiki/Creatures_Wikia_Homepage">Creatures</a>
+      (Grands, 1992-2001)<br>
+    </h3>
+    <ul>
+      <li>Computer game series, created in the mid-1990s by English
+        computer scientist Steve Grand whilst working for the Cambridge
+        video games developer Millennium Interactive. Gameplay focuses
+        on raising alien creatures known as Norns, teaching them to
+        survive, helping them explore their world, defending them
+        against other species, and breeding them. Rather than taking a
+        scripted approach, Creatures series games were driven by
+        detailed biological and neurological simulation. </li>
+      <li>Creatures are long-lived with complex brains, with a genome of
+        weighted <a href="http://creatures.wikia.com/wiki/Instinct">instincts</a></li>
+      <li>The Concept lobe has 640 neurons. This lobe receives input
+        signals from the different sense lobes. One neuron of this lobe
+        may have between one and three input dendrites. All inputs of a
+        single neuron are calculated together with a logical AND
+        operation. Example meanings may be: "I am hungry AND I see food"
+        or "There is a creature AND it is a Grendel AND it is
+        approaching". The output of the neurons in this lobe is passed
+        to the decision lobe. These dendrites may get positive or
+        negative strength values, so they represent what the creature
+        should or should not do in a certain situation. The dendrite's
+        strength is increased by the "reward" chemical and decreased by
+        the "punish" chemical. Dendrites with a strength near zero may
+        migrate to connect to different active input signals, making new
+        random connections possible.&nbsp;</li>
+      <li>Creature brains use a neuronal processing system, called
+        "State Value Rules". I designed the SVRule system in such a way
+        that EVERY statement you can write in it is legal and
+        meaningful, even if it is not biologically useful. If a token
+        was originally the operand for a command, for example, and the
+        command later mutated to one that didn't require operands, the
+        token would now be interpreted instead as a new command or a
+        variable.</li>
+      <li>I didn’t expect people to sit around passively watching
+        hundreds of successive generations of Norns blundering around
+        the landscape, in the hope that one would finally evolve the
+        ability not to bump into things. Norns had to learn during their
+        own lifetimes, and they had to do so while they were actively
+        living out their lives, not during a special training session.</li>
+    </ul>
+    <h3><span style="font-weight: bold;"><a
+          href="http://en.wikipedia.org/wiki/TechnoSphere">TechnoSphere</a>
+        (Prophet, 1995-2002)<br>
+      </span></h3>
+    <ul>
+      <li>"A real-time, 3D simulation of an environment that was
+        populated by virtual creatures. Users across the globe had the
+        capability to create their own creatures through a website."</li>
+      <li>Users "buil[t] carnivores or herbivores from a select few
+        component parts (heads, bodies, eyes, and wheels). Their digital
+        DNA was linked to each component and the completed creature's
+        attributes (speed, visual perception, rate of digestion, etc.)
+        was determined by the combination of each feature's strengths
+        and weaknesses".</li>
+      <li>Creatures "chased or evaded each other, ate, grew, and mated.
+        They also produced offspring, which were variants of the
+        parents, sometimes incorporating aspects of both parents and
+        other times favoring one parent creature's attributes over the
+        others."</li>
+      <li>Major actions include foraging, sleeping, mating, procreating,
+        playing, evading, relocating and rotting. The minor actions
+        which are all used at some point and in some combination to
+        fulfill these activities include search, pursue, fight, play,
+        bonk, labour, move, turn, eat and sleep.</li>
+      <li>Pre-defined life phases: fetus, child, adulthood, ancient</li>
+    </ul>
+    <h3><span class="st"><a
+href="http://connection.ebscohost.com/c/articles/33373730/cellsim-artificial-life-model-inspired-by-basic-single-cell-organism">CELLSIM</a>
+        (Dezfuli, 2008)</span></h3>
+    <ul>
+      <li>Abstract does not say whether simulated cells have an evolving
+        genome.<br>
+      </li>
+      <li>"One cell starts its life in the environment, and if the
+        conditions are suitable, the cell reproduces new cells, and so
+        on. Therefore, after a while, a population of cells will be
+        living in the environment, and performing life activities (e.g.
+        feeding, moving and reproduction) until the environment
+        circumstances make them die. There are several parameters
+        related to the cell and environment affecting the simulation
+        such as the amount of food available in the environment and the
+        cell energy consumption due to movement."</li>
+    </ul>
+    <ul>
+    </ul>
+    <h3> <a href="http://animatlab.com/">AnimatLab</a> (Cofer, 2010-)<br>
+    </h3>
+    <ul>
+      <li>"AnimatLab is a software tool that combines biomechanical
+        simulation and biologically realistic neural networks. You can
+        build the body of an animal, robot, or other machine and place
+        it in a virtual world where the physics of its interaction with
+        the environment are accurate and realistic. You can then design
+        a nervous system that controls the behavior of the body in the
+        environment. The software currently has support for simple
+        firing rate and leaky integrate and fire spiking neural models.
+        In addition, there a number of different synapse model types
+        that can be used to connect the various neural models to produce
+        your nervous system. On the biomechanics side there is support
+        for a variety of different rigid body types, including custom
+        meshes that can be made to match skeletal structures exactly.
+        The biomechanics system also has hill-based muscle and muscle
+        spindle models. These muscle models allow the nervous system to
+        produce movements around joints. In addition, there are also
+        motorized joints for those interested in controlling robots or
+        other biomimetic machines. This allows the user to generate
+        incredibly complicated artificial lifeforms, otherwise known as
+        animats, that are based on real biological systems."</li>
+      <li>A ‘neural editor’ is used to assemble virtual neural circuits
+        using a variety of model neuron and synapse types. Model sensory
+        neurons can then be linked to the body sensors, and motor
+        neurons can be linked to the Hill model muscles to complete the
+        loop.</li>
+    </ul>
+    <ul>
+    </ul>
+    <ul>
+    </ul>
+    <h3><a href="http://www.grandroids.com/">Grandroids</a> (Grands,
+      2011-)</h3>
+    <ul>
+      <li>Artificial minds, not artificial life.<br>
+      </li>
+      <li>"This is not a game about evolution. The creatures will
+        certainly be able to evolve in a pretty sophisticated way
+        (perhaps even the most sophisticated way ever tried), but in
+        practice it’s not the primary focus of the game. Natural
+        selection is VERY SLOW, and the time it takes is proportional to
+        both the complexity of the creatures that are evolving and their
+        life span. For these creatures to live long enough for you to
+        get to know them and care about them means that they will evolve
+        very slowly."</li>
+    </ul>
+    <h3><a href="http://en.wikipedia.org/wiki/OpenWorm">OpenWorm</a>
+      (2012-)<br>
+    </h3>
+    <ul>
+      <li>OpenWorm is an international open science project to simulate
+        the roundworm Caenorhabditis elegans at the cellular level.</li>
+    </ul>
+    <ul>
+    </ul>
+    <h1>Platforms</h1>
+    <h3><a
+href="http://www.santafe.edu/research/working-papers/abstract/70e0c84b2cff6e8e87f2940fa60965e9/"><b>Swarm</b></a>
+      (Langton, 1996-)</h3>
+    <ul>
+      <li> "Swarm is a multi-agent software platform for the simulation
+        of complex adaptive systems. In the Swarm system the basic unit
+        of simulation is the “swarm,” a collection of agents executing a
+        schedule of actions. Swarm supports hierarchical modeling
+        approaches whereby agents can be composed of swarms of other
+        agents in nested structures." </li>
+    </ul>
+    <h3><a href="http://cafun.de/">Cafun</a> (2001-2006)</h3>
+    <ul>
+      <li> cellular automata platform</li>
+    </ul>
+    <ul>
+    </ul>
+    <ul>
+      <ul>
+      </ul>
+    </ul>
+    <h3><b><a href="http://aiplanet.sourceforge.net/">AI.Planet</a>
+        (Kerr, 2002-2007)<a href="http://aiplanet.sourceforge.net/"><br>
+        </a></b></h3>
+    <ul>
+      <ul>
+      </ul>
+      <li>"AI.Planet is a virtual world for artificial
+        intelligence.&nbsp; The environment has water, land, suns,
+        moons, and atmosphere.&nbsp; Plants, animals, fish, and insects
+        can be added to create a dynamic ecosystem.&nbsp; Clouds, rain,
+        wind, lightning, rivers, and icebergs naturally arise from the
+        sun and other influences.&nbsp; You can explore your planet from
+        outer space, by walking around, by tracking creatures, or by
+        controlling a robot that interacts with objects. Artificial
+        Planet is an OpenSource project built with GLScene."
+        <meta http-equiv="content-type" content="text/html;
+          charset=windows-1252">
+      </li>
+      <li>World simulator with hardcoded species: ~20 animal, ~10 plant.
+        <br>
+      </li>
+      <li>One kind of tree can "evolve" via properties of its fruit.</li>
+    </ul>
+    <h3><a href="https://terrarium2.codeplex.com/">.NET Terrarium</a>
+      (2002-2006)</h3>
+    <ul>
+      <li>Terrarium Mode – 1) The user may run alone, without peers.
+        2)&nbsp; Each participating user opts into a special named
+        private peer network.<br>
+      </li>
+      <li>Ecosystem Mode – runs just a small slice of an ecosystem which
+        spans all of the participating peer computers, worldwide.&nbsp;</li>
+      <li>When creating a creature, you have control over everything
+        from genetic traits (eyesight, speed, defensive power, attacking
+        power, etc.) to behavior (the algorithms for locating prey,
+        moving, attacking, etc.) to reproduction (how often a creature
+        will give birth and what “genetic information,” if any, will be
+        passed on to its offspring). Upon completing the development
+        process, the code is compiled into an assembly (dynamically
+        linked library, or DLL) that can be loaded into the local
+        ecosystem slice, viewable through the Terrarium console.</li>
+      <li>Within each peer in the network, a blue “teleporter” ball
+        rolls randomly about. If the user is running with active peers
+        logged in (either in Ecosystem Mode or using a private channel
+        in Terrarium Mode), whenever this blue ball rolls over a
+        creature, that creature is transported to a randomly selected
+        peer machine.<br>
+      </li>
+    </ul>
+    <ul>
+    </ul>
+    <h3><a href="http://www.biota.org/darwinathome/"><b>Darwin @Home</b></a>
+      (de Jong, 2005-2011)<br>
+    </h3>
+    <ul>
+      <li>Platform for distributed artificial evolution.</li>
+      <li>Used by: PolyWorld, Fluidiom, SodaRace</li>
+    </ul>
+    <h3><b><a href="http://www.evogrid.org/index.php/Prototype2009">EvoGrid</a>
+        (Damer, 2009-)<br>
+      </b></h3>
+    <ul>
+      <li>"abstract, yet plausible simulation of the chemical origins of
+        life on Earth. One could think of this as an <i>artificial
+          origin of life</i> experiment. Our strategy is to employ a
+        large number of computers in a grid to simulate a digital
+        primordial soup"</li>
+    </ul>
+    <h3><a href="http://revolutionarygamesstudio.com/">Thrive</a>
+      (2014-)</h3>
+    <ul>
+      <li>"While Thrive was originally widely inspired by Spore’s
+        intended concept, we aim to portray a creature’s evolution in a
+        fun and interesting way while remaining scientifically
+        accurate."<br>
+      </li>
+      <li>"In-game NPC evolution is based on a system known as CPA –
+        organisms collect, compete for and process Compounds (C) in the
+        environment; based on their effectiveness, Population Dynamics
+        (P) controls how successful they are through a variety of
+        simulations; and Auto-Evo (A) takes hold, using automated
+        algorithms to calculate how a species will evolve each
+        generation. Your own species is slightly different, as you
+        control their changes through entering the editor each
+        generation to make small changes. The player will still collect
+        Compounds, and their overall species success is still governed
+        by Population Dynamics."</li>
+      <li>"Auto-evolution" <a
+          href="http://thrivegame.wikidot.com/procedural-evolution">apparently</a>
+        does not include any evolutionary changes to behavior.<br>
+      </li>
+    </ul>
+    <ul>
+    </ul>
+    <p>
+      <meta http-equiv="content-type" content="text/html;
+        charset=windows-1252">
+    </p>
+    <ul>
+    </ul>
+    <ul>
+    </ul>
+    <h1>Uncategorized</h1>
+    <ul>
+    </ul>
+    <ul>
+      <li>https://sites.google.com/site/myzooland/</li>
+    </ul>
+    <br>
+    <ul>
+    </ul>
+    <ul>
+    </ul>
+    <ul>
+    </ul>
+    <p> </p>
+  </body>
+</html>
