@@ -101,6 +101,7 @@ public class ZoelVM {
 	 * Execute an operator. Any arguments of the operator have already
 	 * been evaluated as necessary and pushed onto stack.
 	 */
+    @SuppressWarnings("null")
     private Turn execute( Operator operator ) {
         Literal right = null;
         Literal left = null;
@@ -110,8 +111,6 @@ public class ZoelVM {
         }
         CallRecord parentCall;
     	switch (operator) {
-            case Call:  // TODO operator Call
-                break;
 	    	case While:
 	    	    // If we got here then the loop condition was true,
 	    	    // so repeat the While expression.
