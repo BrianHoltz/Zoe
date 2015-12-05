@@ -7,15 +7,15 @@ import javax.swing.JApplet;
  * @author Brian Holtz
  */
 public class ZoeApplet extends JApplet {
-	private static final long serialVersionUID = 201110072325L;
+    private static final long serialVersionUID = 201110072325L;
 
-	//Called when this applet is loaded into the browser.
+    //Called when this applet is loaded into the browser.
     public void init() {
         //Execute a job on the event-dispatching thread; creating this applet's GUI.
         try {
-        	javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
+            javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
                 public void run() {
-                	createGUI();
+                    createGUI();
                 }
             });
         } catch (Exception e) { 
@@ -31,16 +31,16 @@ public class ZoeApplet extends JApplet {
         setContentPane( zoePanel );        
     }
 
-	/**
-	 * @param args
-	 * java -classpath Zoe.jar org.holtz.zoe.zoeswing.ZoeApplet
-	 */
+    /**
+     * @param args
+     * java -classpath Zoe.jar org.holtz.zoe.zoeswing.ZoeApplet
+     */
     public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-            	new ZoeFrame();
+                new ZoeFrame();
             }
         });
     }

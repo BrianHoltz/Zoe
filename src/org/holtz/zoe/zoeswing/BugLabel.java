@@ -11,29 +11,29 @@ import org.holtz.zoe.Bug;
  * @author Brian Holtz
  */
 public class BugLabel extends JLabel implements Observer {
-	private static final long serialVersionUID = 201104051701L;
-	
-	public Bug bug;
-	
-	private JPanel parentPanel;
-	private BugIcon icon;
+    private static final long serialVersionUID = 201104051701L;
 
-	public BugLabel( Bug theBug, JPanel container ) {
-		bug = theBug;
-		parentPanel = container;
-		bug.addObserver( this );
-		icon = new BugIcon( bug );
-		setIcon( icon );
+    public Bug bug;
+
+    private JPanel parentPanel;
+    private BugIcon icon;
+
+    public BugLabel( Bug theBug, JPanel container ) {
+        bug = theBug;
+        parentPanel = container;
+        bug.addObserver( this );
+        icon = new BugIcon( bug );
+        setIcon( icon );
         Dimension size = getPreferredSize();
         setBounds( (int)Math.round(bug.x()) - icon.getIconWidth()/2, 
-        		   (int)Math.round(bug.y()) - icon.getIconHeight()/2, 
-        		   size.width, size.height);
+                   (int)Math.round(bug.y()) - icon.getIconHeight()/2,
+                   size.width, size.height);
         repaint();
-	}
-	
-	public void toggleSelectedXXX() {
-		icon.toggleSelectedXXX();
-	}
+    }
+
+    public void toggleSelectedXXX() {
+        icon.toggleSelectedXXX();
+    }
     public void select( boolean selected ) {
         icon.select( selected );
     }
@@ -41,18 +41,18 @@ public class BugLabel extends JLabel implements Observer {
         return icon.selected();
     }
     
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		repaint(); // repaints BugLabel in BugPanel
-		if (! (parentPanel instanceof WorldPanel)) {
-			return;
-		}
+    @Override
+    public void update(Observable arg0, Object arg1) {
+        repaint(); // repaints BugLabel in BugPanel
+        if (! (parentPanel instanceof WorldPanel)) {
+            return;
+        }
         Dimension size = getPreferredSize();
         int x = (int)Math.round(bug.x()) - icon.getIconWidth()/2;
         int y = (int)Math.round(bug.y()) - icon.getIconHeight()/2;
         setBounds( x, y, size.width, size.height );
-		if (bug.isGone()) {
-			parentPanel.remove( this );
-		}
-	}
+        if (bug.isGone()) {
+            parentPanel.remove( this );
+        }
+    }
 }

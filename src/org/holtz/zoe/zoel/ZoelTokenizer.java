@@ -10,13 +10,13 @@ import java.io.StreamTokenizer;
  * @see Register
  */
 public class ZoelTokenizer extends StreamTokenizer {
-	public final static char StatementTerminator = ',';
-	
-	public ZoelTokenizer( Reader text ) {
-		super( text );
-		parseNumbers();
-		slashStarComments( true );
-		slashSlashComments( true );
-	}
-	
+    public final static char StatementTerminator = ',';
+
+    public ZoelTokenizer( Reader text ) {
+        super( text );
+        parseNumbers();
+        slashStarComments( true );
+        slashSlashComments( true );
+    }
+
 }

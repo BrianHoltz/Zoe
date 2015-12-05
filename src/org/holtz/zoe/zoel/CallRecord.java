@@ -6,6 +6,6 @@ package org.holtz.zoe.zoel;
  * @author Brian Holtz
  */
 public interface CallRecord {
-	public Expression peek();
+    public Expression peek();
     public void repeat();
 }

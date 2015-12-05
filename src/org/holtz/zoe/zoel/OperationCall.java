@@ -6,23 +6,23 @@ package org.holtz.zoe.zoel;
  * @author Brian Holtz
  */
 public class OperationCall implements CallRecord {
-	public Operation operation;
-	private boolean argEvaluated = false;
-	
-	public OperationCall( Operation theOperation ) {
-		operation = theOperation;
-	}
+    public Operation operation;
+    private boolean argEvaluated = false;
+
+    public OperationCall( Operation theOperation ) {
+        operation = theOperation;
+    }
 
     public void repeat() {
         argEvaluated = false;
     }
-	
-	public String toString() {
-		return operation.op + (argEvaluated ? "" : "()" );
-	}
 
-	@Override
-	public Operation peek() {
-		return operation;
-	}
+    public String toString() {
+        return operation.op + (argEvaluated ? "" : "()" );
+    }
+
+    @Override
+    public Operation peek() {
+        return operation;
+    }
 }

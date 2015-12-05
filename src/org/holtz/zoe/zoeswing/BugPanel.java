@@ -17,13 +17,13 @@ import org.holtz.zoe.Bug;
  * @author Brian Holtz
  */
 public class BugPanel extends JPanel implements Observer {
-	private static final long serialVersionUID = 201109171500L;
-	public Bug bug;
-	public BugLabel bugLabel;
-	JTextArea textArea;
-	JScrollPane scrollPane;
+    private static final long serialVersionUID = 201109171500L;
+    public Bug bug;
+    public BugLabel bugLabel;
+    JTextArea textArea;
+    JScrollPane scrollPane;
 
-	public BugPanel( Bug theBug ) {
+    public BugPanel( Bug theBug ) {
         super(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridwidth = GridBagConstraints.REMAINDER;
@@ -33,10 +33,10 @@ public class BugPanel extends JPanel implements Observer {
         Insets insets = new Insets( 7, 7, 7, 7 );
         constraints.insets = insets;
         
-		bug = theBug;
-		bug.addObserver( this );
-		add( bugLabel = new BugLabel( bug, this ), constraints );
-		bugLabel.setToolTipText( "What the bug looks like" );
+        bug = theBug;
+        bug.addObserver( this );
+        add( bugLabel = new BugLabel( bug, this ), constraints );
+        bugLabel.setToolTipText( "What the bug looks like" );
 
         textArea = new JTextArea(40, 25);
         textArea.setEditable(false);
@@ -46,18 +46,18 @@ public class BugPanel extends JPanel implements Observer {
         add(scrollPane, constraints);
         
         update( bug, this );
-	}
+    }
 
-	@Override
-	public void update(Observable arg0, Object arg1) {
+    @Override
+    public void update(Observable arg0, Object arg1) {
         Point lastPos = scrollPane.getViewport().getViewPosition();
         if (lastPos.x != 0 || lastPos.y != 0) {
-        	return;
+            return;
         }
-		textArea.setText("Bug ");
-		textArea.append( bug.toString( "\n", false ) + "\n\n" );
+        textArea.setText("Bug ");
+        textArea.append( bug.toString( "\n", false ) + "\n\n" );
         textArea.append( bug.descendents( "\n" ) + "\n\n");
         textArea.append( "Ancestors:\n" + bug.genealogy( "\n" ) + "\n\n" );
         textArea.setCaretPosition( 0 );
-	}
+    }
 }

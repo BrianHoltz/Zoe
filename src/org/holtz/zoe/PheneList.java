@@ -8,21 +8,21 @@ import java.util.ArrayList;
  */
 public class PheneList extends ArrayList<Phene> {
 
-	public PheneList(Bug bug) {
-		for (Gene gene : bug.genotype.genes) {
-			add( new Phene( bug, gene ));
-		}
-	}
+    public PheneList(Bug bug) {
+        for (Gene gene : bug.genotype.genes) {
+            add( new Phene( bug, gene ));
+        }
+    }
 
-	private static final long serialVersionUID = 201111152047L;
+    private static final long serialVersionUID = 201111152047L;
 
-	public String toString(String separator) {
-		String msg = "";
-		String sep2Use = "";
-		for (Phene phene : this) {
-			msg += sep2Use + phene.toString( separator );
-			sep2Use = separator;
-		}
-		return msg;
-	}
+    public String toString(String separator) {
+        String msg = "";
+        String sep2Use = "";
+        for (Phene phene : this) {
+            msg += sep2Use + phene.toString( separator );
+            sep2Use = separator;
+        }
+        return msg;
+    }
 }

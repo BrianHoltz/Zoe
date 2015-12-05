@@ -8,21 +8,21 @@ import org.holtz.zoe.Bug;
  */
 public class BugFrame extends JFrame
 {
-	private static final long serialVersionUID = 201109171431L;
-	
-	private BugPanel bugPanel;
-	private Bug bug;
+    private static final long serialVersionUID = 201109171431L;
 
-	public BugFrame( Bug theBug ) {
-		bug = theBug;
-		setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
-		bugPanel = new BugPanel( bug );
-		add( bugPanel );
-		setTitle( "Bug Properties" );
-		if (bug != null) {
-			setTitle( "Bug " + bug.id + " Properties" );
-		}
-		pack();
-		setVisible(true);
-	}
+    private BugPanel bugPanel;
+    private Bug bug;
+
+    public BugFrame( Bug theBug ) {
+        bug = theBug;
+        setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
+        bugPanel = new BugPanel( bug );
+        add( bugPanel );
+        setTitle( "Bug Properties" );
+        if (bug != null) {
+            setTitle( "Bug " + bug.id + " Properties" );
+        }
+        pack();
+        setVisible(true);
+    }
 }

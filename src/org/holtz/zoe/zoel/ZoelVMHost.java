@@ -10,20 +10,20 @@ import org.holtz.zoe.zoel.ZoelVM.Turn;
  */
 public interface ZoelVMHost {
 
-	public Random random();
-	public World world();
-	public int maxDataSize();
-	public int maxStepsPerTurn();
-	public String tracePrefix();
+    public Random random();
+    public World world();
+    public int maxDataSize();
+    public int maxStepsPerTurn();
+    public String tracePrefix();
 
-	public Literal get( RegisterReference arg );
+    public Literal get( RegisterReference arg );
     public Literal get( Literal key );
     public Literal put( Literal key, Literal val );
-	public Turn execute( Operator op, Literal arg );
-	/**
-	 * The implicit argument, if any, of an Operator.
-	 * @param op The Operator.
-	 * @return A RegisterReference or Literal, or null if op has no implicit argument.
-	 */
-	public Expression implicitArgOf( Operator op );
+    public Turn execute( Operator op, Literal arg );
+    /**
+     * The implicit argument, if any, of an Operator.
+     * @param op The Operator.
+     * @return A RegisterReference or Literal, or null if op has no implicit argument.
+     */
+    public Expression implicitArgOf( Operator op );
 }
