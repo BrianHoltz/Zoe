@@ -270,19 +270,6 @@ public class Bug extends ZObject implements ZoelVMHost {
         }
     }
 
-    private double bite(Joule joule) {
-        double oldSize = diameter;
-        assert joule != null : "Biting null joule";
-        double maxUsableBite = maxStrength( World.BugMaxSize ) - strength;
-        double toBite = Math.min( biteSize(), maxUsableBite );
-        double strengthBitten = Math.min( toBite, joule.joules );
-        grow( World.BiteEfficiency * strengthBitten );
-        assert strength >= 0 : "Negative strength after biting " + joule;
-        joule.getBit(strengthBitten);
-        assert oldSize <= diameter : "bug shrank by biting a joule";
-        return strengthBitten;
-    }
-
     private double bite(Bug victim) {
         if (victim == null) return 0;
         boolean bugWasAlive = !victim.isDead();
@@ -338,19 +325,7 @@ public class Bug extends ZObject implements ZoelVMHost {
         }
         lastSensed = closest;
         if (closest instanceof Bug) return bite( (Bug) closest );
-        if (closest instanceof Joule) return bite( (Joule) closest );
         return 0;
-    }
-
-    // Returns amount of energy barfed
-    private double barf() {
-        Joule barfedJoule = new Joule( world );
-        barfedJoule.setXY(x(), y());
-        lastSensed = barfedJoule;
-        barfedJoule.joules = strength;
-        world.add( barfedJoule );
-        strength = 0;
-        return barfedJoule.joules;
     }
 
     private Bug randomSplit() {
@@ -638,9 +613,6 @@ public class Bug extends ZObject implements ZoelVMHost {
                 break;
             case Bite:
                 if (bite() == 0) return ZoelVM.Turn.Continues;
-                break;
-            case Barf:
-                if (barf() == 0) return ZoelVM.Turn.Continues;
                 break;
             case Spawn:
                 if (spawn( operand.toNumber() ) == null) return ZoelVM.Turn.Continues;

@@ -86,7 +86,6 @@ public class World extends Observable {
     public int width = Width;
     public int height = Height;
     public ArrayList<Bug> bugs = new ArrayList<Bug>();
-    public ArrayList<Joule> joules = new ArrayList<Joule>();
     public double energyEverPhotosynthesized = 0;
     public int cycle = 1; // So bugs that spawn at cycle % N won't spawn immediately
     public Date start = new Date();
@@ -186,20 +185,6 @@ public class World extends Observable {
         }
     }
 
-    public void add( Joule newJoule ) {
-        joules.add( newJoule );
-        setChanged();
-        notifyObservers( newJoule );
-    }
-
-    public void remove( Joule deadJoule ) {
-        Iterator<Joule> jouleItr = joules.iterator();
-        while (jouleItr.hasNext()) {
-            if (jouleItr.next() != deadJoule) continue;
-            jouleItr.remove();
-        }
-    }
-
     public void remove( Bug bug ) {
         Iterator<Bug> bugItr = bugs.iterator();
         while (bugItr.hasNext()) {
@@ -220,14 +205,6 @@ public class World extends Observable {
         double total = 0;
         for( Bug bug : bugs ) {
             total += bug.mass();
-        }
-        return total;
-    }
-
-    public double joules() {
-        double total = 0;
-        for( Joule joule : joules ) {
-            total += joule.joules;
         }
         return total;
     }
@@ -297,20 +274,11 @@ public class World extends Observable {
         return (Bug)closestOf( bugs, from, maxRange, minRange );
     }
 
-    private Joule closestJoule( Bug from, double maxRange, double minRange ) {
-        return (Joule)closestOf( joules, from, maxRange, minRange );
-    }
-
     public ZObject closestObject( Bug from, double maxRange ) {
         return closestObject( from, maxRange, -1 );
     }
     public ZObject closestObject( Bug from, double maxRange, double minRange ) {
-        Bug bug = closestBug( from, maxRange, minRange );
-        Joule joule = closestJoule( from, maxRange, minRange );
-        if (bug == null) return joule;
-        if (joule == null) return bug;
-        if (from.range( bug ) < from.range( joule )) return bug;
-        return joule;
+        return closestBug( from, maxRange, minRange );
     }
 
     public void resize( Dimension newSize ) {

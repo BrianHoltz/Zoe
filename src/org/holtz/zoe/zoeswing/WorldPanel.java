@@ -16,7 +16,6 @@ import java.util.Observer;
 import javax.swing.JPanel;
 
 import org.holtz.zoe.Bug;
-import org.holtz.zoe.Joule;
 import org.holtz.zoe.World;
 
 /**
@@ -32,21 +31,13 @@ public class WorldPanel extends JPanel implements Observer, MouseMotionListener,
 	public WorldPanel( ZoePanel zp ) {
 		setLayout( null );
 		parent = zp;
-		addComponentListener( this );
+		addComponentListener(this);
 	}
 
 	public void createWorld() {
 		world = new World( getSize() );
-		world.addObserver( this );
+		world.addObserver(this);
 	}
-
-    public void add( Joule joule ) {
-        JouleLabel jouleLabel = new JouleLabel( joule, this );
-        add( jouleLabel );
-    	jouleLabel.addMouseMotionListener(this);
-    	jouleLabel.addMouseListener(this);
-    	jouleLabel.repaint();
-    }
 
     public void add( Bug bug ) {
         BugLabel bugLabel = new BugLabel( bug, this );
@@ -59,11 +50,9 @@ public class WorldPanel extends JPanel implements Observer, MouseMotionListener,
 
 	@Override
 	public void update(Observable theWorld, Object newObj) {
+		// java.util.Observer only knows Object
 		if (newObj instanceof Bug) {
 			add( (Bug)newObj );
-		}
-		if (newObj instanceof Joule) {
-			add( (Joule)newObj );
 		}
 	}
 
@@ -75,10 +64,6 @@ public class WorldPanel extends JPanel implements Observer, MouseMotionListener,
             bugLabel.bug.setXY( e.getX() + bugLabel.getX(),
             		e.getY() + bugLabel.getY() );
         	parent.worldStatusPanel.updateStats();
-    	} else if (dragged instanceof JouleLabel) {
-    		JouleLabel jouleLabel = (JouleLabel)dragged;
-            jouleLabel.joule.setXY( e.getX() + jouleLabel.getX(),
-            		e.getY() + jouleLabel.getY() );
     	} else {
 			System.err.println( "Unexpected Drag Event: " + e.toString() );
 		}
@@ -119,8 +104,6 @@ public class WorldPanel extends JPanel implements Observer, MouseMotionListener,
 				new BugFrame( bug.bug );
 			}
 			parent.worldStatusPanel.updateStats();
-		} else if (clicked instanceof JouleLabel) {
-			// JouleLabel joule = (JouleLabel)clicked;
 		} else {
 			System.err.println( "Unexpected Click Event: " + e );
 		}
