@@ -38,8 +38,8 @@ public class WorldStatusPanel extends JPanel {
         add( worldLabel );
     }
 
-    public void updateStats() {
-        World world = worldPanel.world;
+    public void updateStats(World world) {
+        if (world == null) return;
         Date now = new Date();
         int numLive = world.numLive();
         long sampleLength = now.getTime() - lastSampleTime.getTime();
@@ -59,7 +59,7 @@ public class WorldStatusPanel extends JPanel {
         String worldText = "";
         worldText += "World " + world.seed + ": " + world.cycle
             + " / " + hours + String.format( "h %.1f", mins ) + "m = "
-            + hertz * numLive + "hz";
+            + hertz * numLive / 1000 + "Khz";
         Genotype top = world.topSpecies();
         worldText += "    " + numLive + " alive";
         if (top != null) worldText += " [" + top.numLiving + " are species " + top.id + "]";
@@ -73,7 +73,7 @@ public class WorldStatusPanel extends JPanel {
             + String.format( "Energy %.0f =", strength + mass )
             + String.format( "$%.0f", strength)
             + String.format( " + %.0fg", mass)
-            + String.format( " (%.0f lux)", world.energyEverPhotosynthesized);
+            + String.format( " (%.0f photons)", world.energyEverPhotosynthesized);
         worldLabel.setText( worldText );
         String bugText = "Selected Bug";
         if (worldPanel.selectedBug == null ) {
