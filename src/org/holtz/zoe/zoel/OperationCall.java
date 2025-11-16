@@ -1,11 +1,13 @@
 package org.holtz.zoe.zoel;
 
 
+import java.io.Serializable;
+
 /**
  * An entry in the <code>CallStack</code> of a <code>Bug</code> storing execution state for a <code>Statement</code>.
  * @author Brian Holtz
  */
-public class OperationCall implements CallRecord {
+public class OperationCall implements CallRecord, Serializable {
     public Operation operation;
     private boolean argEvaluated = false;
 

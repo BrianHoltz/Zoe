@@ -1,5 +1,6 @@
 package org.holtz.zoe;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import org.holtz.zoe.zoel.ExpressionList;
@@ -11,7 +12,7 @@ import org.holtz.zoe.zoel.ZoelTokenizer;
  * The unit of heredity of a Zoe <code>Bug</code>, consisting of <code>Zoel</code> actions and the <code>Zoel</code> conditions under which to fire them.
  * @author Brian Holtz
  */
-public class Gene {
+public class Gene implements Serializable {
     protected int id = getNextId();
     protected ExpressionList when;
     protected ExpressionList action;

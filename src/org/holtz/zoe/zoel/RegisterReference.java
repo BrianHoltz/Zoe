@@ -1,12 +1,13 @@
 package org.holtz.zoe.zoel;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
  * A <code>Bug</code> attribute referenced as a <code>Statement's Operand</code> in a <code>Zoel</code> program.
  * @author Brian Holtz
  */
-public class RegisterReference extends Value {
+public class RegisterReference extends Value implements Serializable {
     /**
      * Whether a RegisterReference refers to the bug itself or to the bug it last sensed.
      */

@@ -1,4 +1,5 @@
 package org.holtz.zoe.zoel;
+import java.io.Serializable;
 import java.util.Random;
 
 /**

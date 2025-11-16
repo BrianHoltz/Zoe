@@ -1,12 +1,13 @@
 package org.holtz.zoe.zoel;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
  * A fundamental instruction in a <code>Zoel</code> program.
  * @author Brian Holtz
  */
-public class Operation extends Expression {
+public class Operation extends Expression implements Serializable {
     public Operator op;
     public Expression arg;
 

@@ -1,11 +1,13 @@
 package org.holtz.zoe.zoel;
 
 
+import java.io.Serializable;
+
 /**
  * A string <code>Literal</code> <code>Operand</code> of a <code>Statement</code> in a <code>Zoel</code> program.
  * @author Brian Holtz
  */
-public class StringLiteral extends Literal {
+public class StringLiteral extends Literal implements Serializable {
     public String val;
 
     public StringLiteral(String theVal) {

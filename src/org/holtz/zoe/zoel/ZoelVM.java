@@ -3,11 +3,13 @@ package org.holtz.zoe.zoel;
 import org.holtz.zoe.Point;
 import org.holtz.zoe.World;
 
+import java.io.Serializable;
+
 /**
  * A virtual machine that executes Zoel code for a <code>ZoelVMHost</code>.
  * @author Brian Holtz
  */
-public class ZoelVM {
+public class ZoelVM implements Serializable {
     /**
      * Whether a ZoelVM has executed a turn-ending Operation.
      */

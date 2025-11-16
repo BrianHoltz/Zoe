@@ -1,11 +1,13 @@
 package org.holtz.zoe.zoel;
 
 
+import java.io.Serializable;
+
 /**
  * A numeric <code>Literal</code> <code>Operand</code> of a <code>Statement</code> in a <code>Zoel</code> program.
  * @author Brian Holtz
  */
-public class Number extends Literal {
+public class Number extends Literal implements Serializable {
     public double val;
 
     public Number( double theVal ) {

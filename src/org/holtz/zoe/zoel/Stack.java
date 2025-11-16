@@ -1,11 +1,12 @@
 package org.holtz.zoe.zoel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 /**
  * A stack that can forget its deepest elements and can have a default element when empty.
  * @author Brian Holtz
  */
-public class Stack<T> extends ArrayList<T> {
+public class Stack<T> extends ArrayList<T> implements Serializable {
 
     public T val2PopWhenEmpty = null;
 

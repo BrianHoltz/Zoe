@@ -1,11 +1,13 @@
 package org.holtz.zoe.zoel;
 
 
+import java.io.Serializable;
+
 /**
  * A <code>Statement</code> argument that is a literal or reference rather than a <code>StatementList</code> block statement.
  * @author Brian Holtz
  */
-public abstract class Value extends Expression {
+public abstract class Value extends Expression implements Serializable {
 
     public static Value parse( ZoelTokenizer zoelTokenizer ) throws Exception {
         // Must be literal | $myRegister | $$yourRegister
