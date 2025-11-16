@@ -1,12 +1,13 @@
 package org.holtz.zoe;
 
 import java.awt.geom.Point2D;
+import java.io.Serializable;
 
 /**
  * A point in a Zoe world that can compute range and bearing to other points in that world.
  * @author Brian Holtz
  */
-public class Point extends Point2D.Double {
+public class Point extends Point2D.Double implements Serializable {
    
     private static final long serialVersionUID = 201111271037L;
 

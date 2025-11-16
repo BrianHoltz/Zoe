@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
@@ -15,7 +16,7 @@ import org.holtz.zoe.zoel.ZoelTokenizer;
 * The species of a <code>Bug</code>, consisting of a <code>GeneList</code> of <code>Genes</code>.
 * @author Brian Holtz
 */
-public class Genotype {
+public class Genotype implements Serializable {
     private static int numEverCreated = 0;
     private static ArrayList<Genotype> founders;
     private static String extension = ".zoe";

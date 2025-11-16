@@ -1,5 +1,6 @@
 package org.holtz.zoe.zoel;
 
+import java.io.Serializable;
 import java.util.Random;
 
 
@@ -7,7 +8,7 @@ import java.util.Random;
  * A <code>Value</code>, <code>Operation</code>, or <code>StatementList</code> in a <code>Zoel</code> program.
  * @author Brian Holtz
  */
-public abstract class Expression {
+public abstract class Expression implements Serializable {
 
     public abstract Expression copy();
 

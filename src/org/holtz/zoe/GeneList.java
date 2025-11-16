@@ -1,5 +1,6 @@
 package org.holtz.zoe;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Random;
@@ -13,7 +14,7 @@ import org.holtz.zoe.zoel.ZoelTokenizer;
  * 
  * @author Brian Holtz
  */
-public class GeneList extends ArrayList<Gene> {
+public class GeneList extends ArrayList<Gene> implements Serializable {
 
     private static final long serialVersionUID = 201111110751L;
     

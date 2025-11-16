@@ -1,5 +1,6 @@
 package org.holtz.zoe.zoel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Random;
@@ -8,7 +9,7 @@ import java.util.Random;
  * A list of <code>Expressions</code> of a <code>Bug</code>, constituting a block statement in a <code>Zoel</code> program.
  * @author Brian Holtz
  */
-public class ExpressionList extends Expression {
+public class ExpressionList extends Expression implements Serializable {
     public static final boolean NoActionOperators = false;
     
     private ArrayList<Expression> expressions = new ArrayList<Expression>();

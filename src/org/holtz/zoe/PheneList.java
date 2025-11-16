@@ -1,12 +1,13 @@
 package org.holtz.zoe;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * A list of <code>Phene</code>s.
  * @author Brian Holtz
  */
-public class PheneList extends ArrayList<Phene> {
+public class PheneList extends ArrayList<Phene> implements Serializable {
 
     public PheneList(Bug bug) {
         for (Gene gene : bug.genotype.genes) {

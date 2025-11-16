@@ -1,5 +1,6 @@
 package org.holtz.zoe;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import org.holtz.zoe.zoel.Expression;
@@ -13,7 +14,7 @@ import org.holtz.zoe.zoel.ZoelVMHost;
  * The expression of a <code>Gene</code>, consisting of its <code>ZoelVM</code> execution state.
  * @author Brian Holtz
  */
-public class Phene implements ZoelVMHost {
+public class Phene implements ZoelVMHost, Serializable {
 
     protected Gene gene;
     //protected double excitement = 0;

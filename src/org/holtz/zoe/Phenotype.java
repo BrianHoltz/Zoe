@@ -1,5 +1,6 @@
 package org.holtz.zoe;
 
+import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import org.holtz.zoe.zoel.ZoelVM;
@@ -9,7 +10,7 @@ import org.holtz.zoe.zoel.ZoelVM;
  * <code>PheneList</code> of <code>Phene</code>s.
  * @author Brian Holtz
  */
-public class Phenotype {
+public class Phenotype implements Serializable {
     protected PheneList phenes;
     protected Bug bug;
     /**
