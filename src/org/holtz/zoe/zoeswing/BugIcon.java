@@ -1,6 +1,5 @@
 package org.holtz.zoe.zoeswing;
-import java.awt.Component;
-import java.awt.Graphics;
+import java.awt.*;
 
 import javax.swing.ImageIcon;
 
@@ -43,6 +42,24 @@ public class BugIcon extends ImageIcon {
         int stomachEdge = (int)Math.toDegrees(Math.PI - bug.heading - strengthRadians/2);
         g.fillArc(x - diameter/2, y - diameter/2, diameter, diameter,
             stomachEdge, strengthDegrees );
+    }
+    private void paintStomachLevel( Graphics g, int xCorner, int yCorner ) {
+        int x = xCorner + getIconWidth()/2;
+        int y = yCorner + getIconHeight()/2;
+        int diameter = bugDiameter();
+        int xOffset = (int)Math.round((Math.cos( bug.heading ) * diameter/2));
+        int yOffset = (int)Math.round((Math.sin( bug.heading ) * diameter/2));
+        int assX = x - xOffset;
+        int assY = y - yOffset;
+        Polygon thoraxBox = new Polygon();
+        thoraxBox.addPoint(x + xOffset, y + yOffset);
+        thoraxBox.addPoint(x - xOffset, y + yOffset);
+        thoraxBox.addPoint(x - xOffset, y - yOffset);
+        thoraxBox.addPoint(x + xOffset, y - yOffset);
+        g.setClip(thoraxBox);
+        g.fillArc(x - diameter/2, y - diameter/2, diameter, diameter,
+                0, 360 );
+        g.setClip(null);
     }
 
     public void paintIcon(Component comp, Graphics g, 

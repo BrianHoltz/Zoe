@@ -1,6 +1,7 @@
 package org.holtz.zoe;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -24,7 +25,7 @@ import org.holtz.zoe.zoel.ZoelVMHost;
  * 
  * @author Brian Holtz
  */
-public class Bug extends ZObject implements ZoelVMHost {
+public class Bug extends ZObject implements ZoelVMHost, Serializable {
 
     public Bug             mother;
     public Bug             father;
@@ -40,6 +41,8 @@ public class Bug extends ZObject implements ZoelVMHost {
     public double          heading;
     public double          course;
     private double         strength;
+    private double         cachedMass = -1;
+    private boolean        massDirty = true;
     /**
      * Gaze in radians relative to heading.
      */
@@ -85,10 +88,10 @@ public class Bug extends ZObject implements ZoelVMHost {
         }
         double cost = 2 * minNewbornEnergy();
         double birthMass = cost / 2;
-        diameter = Math.sqrt( 4 * birthMass / Math.PI );
-        strength = cost / 2;
-        genotype = theGenotype;
-        enterTheWorld();
+        this.diameter = Math.sqrt( 4 * birthMass / Math.PI );
+        this.strength = cost / 2;
+        this.genotype = theGenotype;
+        this.enterTheWorld();
     }
 
     private Bug(Bug mom, Bug dad, double strength2Invest) {
@@ -158,7 +161,11 @@ public class Bug extends ZObject implements ZoelVMHost {
     // Mass is area of circle with diameter of "size"
     @Override
     public double mass() {
-        return mass( diameter );
+        if (massDirty || cachedMass < 0) {
+            cachedMass = mass( diameter );
+            massDirty = false;
+        }
+        return cachedMass;
     }
 
     private static double mass(double theSize) {
@@ -268,6 +275,7 @@ public class Bug extends ZObject implements ZoelVMHost {
             diameter = 2 * Math.sqrt( massEnergy / 2 / Math.PI );
             strength = maxStrength();
         }
+        massDirty = true; // Mark mass cache as invalid when diameter changes
     }
 
     private double bite(Bug victim) {
@@ -489,7 +497,7 @@ public class Bug extends ZObject implements ZoelVMHost {
 
     @Override
     public Literal get(RegisterReference arg) {
-        Literal val = null;
+        Literal val;
         Bug bug = null;
         updateRegisters( arg );
         if (lastSensed instanceof Bug) bug = (Bug) lastSensed;
@@ -603,7 +611,6 @@ public class Bug extends ZObject implements ZoelVMHost {
                 move();
                 break;
             case Turn:
-                double turnRadians = 0;
                 Point dest = Point.parse( operand.toString() );
                 if (dest != null) {
                     setCourse(bearing(dest));
@@ -730,10 +737,6 @@ public class Bug extends ZObject implements ZoelVMHost {
 
     public String genealogy(int generations) {
         return genealogy( generations, " " );
-    }
-
-    public String descendents() {
-        return descendents( " " );
     }
 
     public String descendents(String separator) {

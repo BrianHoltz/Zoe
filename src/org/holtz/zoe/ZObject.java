@@ -1,4 +1,5 @@
 package org.holtz.zoe;
+import java.io.Serializable;
 import java.util.Observable;
 import java.awt.Color;
 
@@ -10,13 +11,15 @@ import org.holtz.zoe.zoel.StringLiteral;
  * A physical object in a toroidal Zoe <code>World</code>.
  * @author Brian Holtz
  */
-public abstract class ZObject extends Observable {
+public abstract class ZObject extends Observable implements Serializable {
 
     public World world;
     private double x;
     private double y;
     public int id = getNextId();
     private Object context;
+    private Point cachedLocation;
+    private boolean locationDirty = true;
 
     public ZObject( World theWorld ) {
         world = theWorld;
@@ -27,7 +30,11 @@ public abstract class ZObject extends Observable {
     public abstract int getNumEverCreated();
 
     public Point location() {
-        return new Point( x, y );
+        if (locationDirty || cachedLocation == null) {
+            cachedLocation = new Point( x, y );
+            locationDirty = false;
+        }
+        return cachedLocation;
     }
     public double x() { return x; }
     public double y() { return y; }
@@ -64,6 +71,11 @@ public abstract class ZObject extends Observable {
         while (x >= world.width) { x -= world.width; }
         while (y < 0) { y += world.height; }
         while (y >= world.height) { y -= world.height; }
+        locationDirty = true; // Mark location cache as invalid
+        // Mark spatial grid as dirty when object moves (only if it's a Bug)
+        if (this instanceof Bug) {
+            world.markSpatialGridDirty();
+        }
         repaint();
     }
 

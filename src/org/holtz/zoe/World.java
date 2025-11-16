@@ -1,9 +1,15 @@
 package org.holtz.zoe;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Properties;
 import java.util.Random;
@@ -17,7 +23,7 @@ import java.lang.reflect.Field;
  * A Zoe universe, with all the parameters to control and replay its evolution.
  * @author Brian Holtz
  */
-public class World extends Observable {
+public class World extends Observable implements Serializable {
     public static boolean Trace = false;
     public static boolean SuppressAllBirths = false;
     //
@@ -78,11 +84,15 @@ public class World extends Observable {
     public static int MinMilliSecsPerTurn = 1;
     // Colors that sum too high are too faint
     public static int MaxColorMutation = 90;
-
+    //
+    // Convenient derived constants
+    //
     public static int MinCyclesBeforeSpontaneousSplit = ExpectedCyclesBeforeSpontaneousSplit/2;
     public static double SplitProbabilityPerCycle =
         1 - Math.pow(0.5, 1.0 / World.ExpectedCyclesBeforeSpontaneousSplit);
-
+    //
+    // Non-constant data about the world
+    //
     public int width = Width;
     public int height = Height;
     public ArrayList<Bug> bugs = new ArrayList<Bug>();
@@ -95,6 +105,13 @@ public class World extends Observable {
     public java.util.Random random;
     private ArrayList<Bug> newBugs;
     private Iterator<Bug> bug2RunItr;
+    
+    // Spatial grid for efficient proximity queries
+    // Grid cell size should be roughly 2x VisionRange for optimal performance
+    private static final int GRID_CELL_SIZE = 60; // Adjust based on VisionRange (30)
+    private Map<Integer, List<Bug>> spatialGrid = new HashMap<Integer, List<Bug>>();
+    private boolean spatialGridDirty = true;
+    private int lastGridUpdateCycle = -1;
 
     public static Properties props = null;
     private static String propsFileName = "Zoe.properties";
@@ -161,6 +178,14 @@ public class World extends Observable {
         }
     }
 
+    public void save(File file) throws IOException {
+        FileOutputStream fileOut = new FileOutputStream(file);
+        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        out.writeObject(this);
+        out.close();
+        fileOut.close();
+    }
+
     public double brownianMotion() {
         return BrownianMotionPerCycle / 2 - random.nextFloat() * BrownianMotionPerCycle;
     }
@@ -177,6 +202,7 @@ public class World extends Observable {
         // TODO If we add bugs mid-cycle, bugs list gets a ConcurrentModification exception
         if (bug2RunItr == null) {
             bugs.add( newBug );
+            spatialGridDirty = true; // Mark grid as needing update
             setChanged();
             notifyObservers( newBug );
         } else {
@@ -190,6 +216,8 @@ public class World extends Observable {
         while (bugItr.hasNext()) {
             if (bugItr.next() != bug) continue;
             bugItr.remove();
+            spatialGridDirty = true; // Mark grid as needing update
+            break;
         }
     }
 
@@ -244,34 +272,78 @@ public class World extends Observable {
     }
 
     // minRange is used when looking beyond a seen object
+    // Uses spatial grid for O(1) cell lookup instead of O(n) iteration
+    private ZObject closestOf(
+        Bug from,
+        double maxRange,
+        double minRange
+    ) {
+        // Update spatial grid if needed
+        updateSpatialGrid();
+        
+        ZObject closest = null;
+        double closestRange = maxRange;
+        double maxRangeSquared = maxRange * maxRange;
+        
+        // Calculate which grid cells to check
+        int centerGridX = (int)(from.x() / GRID_CELL_SIZE);
+        int centerGridY = (int)(from.y() / GRID_CELL_SIZE);
+        int radius = (int)Math.ceil(maxRange / GRID_CELL_SIZE) + 1; // +1 for safety
+        
+        // Check bugs in nearby grid cells only
+        for (int dx = -radius; dx <= radius; dx++) {
+            for (int dy = -radius; dy <= radius; dy++) {
+                int key = gridKey(centerGridX + dx, centerGridY + dy);
+                List<Bug> cellBugs = spatialGrid.get(key);
+                if (cellBugs == null) continue;
+                
+                for (Bug obj : cellBugs) {
+                    if (obj == from || obj.isGone()) continue;
+                    
+                    // Quick distance check using direct coordinates (cheaper than toroidal range)
+                    double dxCoord = from.x() - obj.x();
+                    double dyCoord = from.y() - obj.y();
+                    // Account for toroidal wrapping
+                    double dxWrapped = Math.min(Math.abs(dxCoord), from.world.width - Math.abs(dxCoord));
+                    double dyWrapped = Math.min(Math.abs(dyCoord), from.world.height - Math.abs(dyCoord));
+                    double quickDistSquared = dxWrapped * dxWrapped + dyWrapped * dyWrapped;
+                    
+                    // Early exit: if quick distance check shows object is too far
+                    if (quickDistSquared > maxRangeSquared * 1.5) continue;
+                    
+                    // Check visibility before expensive range calculation
+                    if (! from.canSee( obj )) continue;
+                    
+                    // Now do expensive toroidal range calculation
+                    double range = from.range( obj );
+                    if (range > maxRange) continue;
+                    if (range <= minRange) continue;
+                    if (range >= closestRange) continue;
+                    
+                    closest = obj;
+                    closestRange = range;
+                }
+            }
+        }
+        return closest;
+    }
+    
+    // Legacy method for backward compatibility (now uses spatial grid)
+    @SuppressWarnings("unused")
     private static ZObject closestOf(
         List<? extends ZObject> objects,
         Bug from,
         double maxRange,
         double minRange
     ) {
-        Iterator<? extends ZObject> objItr = objects.listIterator();
-        ZObject closest = null;
-        double closestRange = 100000;
-        while (objItr.hasNext()) {
-            ZObject obj = objItr.next();
-            if (obj == from) continue;
-            double range = from.range( obj );
-            if (range > maxRange) continue;
-            if (range <= minRange) continue;
-            if (range >= closestRange) continue;
-            if (! from.canSee( obj )) continue;
-            closest = obj;
-            closestRange = range;
-        }
-        return closest;
+        return from.world.closestOf(from, maxRange, minRange);
     }
 
     public Bug closestBug( Bug from, double maxRange ) {
         return closestBug( from, maxRange, -1 );
     }
     public Bug closestBug( Bug from, double maxRange, double minRange ) {
-        return (Bug)closestOf( bugs, from, maxRange, minRange );
+        return (Bug)closestOf( from, maxRange, minRange );
     }
 
     public ZObject closestObject( Bug from, double maxRange ) {
@@ -284,6 +356,41 @@ public class World extends Observable {
     public void resize( Dimension newSize ) {
         if (newSize.width > 0) width = newSize.width;
         if (newSize.height > 0) height = newSize.height;
+        spatialGridDirty = true; // Grid needs rebuilding after resize
+    }
+    
+    // Convert grid coordinates to a unique key
+    private int gridKey(int gridX, int gridY) {
+        int maxGridX = (width / GRID_CELL_SIZE) + 2; // +2 for safety
+        return gridY * maxGridX + gridX;
+    }
+    
+    // Update spatial grid with current bug positions
+    // Only updates once per cycle to avoid redundant rebuilds
+    private void updateSpatialGrid() {
+        // Only update if dirty and we haven't updated this cycle yet
+        if (!spatialGridDirty || lastGridUpdateCycle == cycle) return;
+        
+        spatialGrid.clear();
+        for (Bug bug : bugs) {
+            if (bug.isGone()) continue;
+            int gridX = (int)(bug.x() / GRID_CELL_SIZE);
+            int gridY = (int)(bug.y() / GRID_CELL_SIZE);
+            int key = gridKey(gridX, gridY);
+            List<Bug> cellBugs = spatialGrid.get(key);
+            if (cellBugs == null) {
+                cellBugs = new ArrayList<Bug>();
+                spatialGrid.put(key, cellBugs);
+            }
+            cellBugs.add(bug);
+        }
+        spatialGridDirty = false;
+        lastGridUpdateCycle = cycle;
+    }
+    
+    // Mark spatial grid as needing update (call when bugs move or are added/removed)
+    public void markSpatialGridDirty() {
+        spatialGridDirty = true;
     }
 
     public void nextWorldCycle() {
@@ -316,8 +423,12 @@ public class World extends Observable {
         if (bug.isGone()) {
             bug.repaint();
             bug2RunItr.remove();
+            spatialGridDirty = true; // Mark grid as needing update
         } else {
             bug.next();
+            // Mark grid dirty when bug moves (will be updated lazily on next query)
+            // Note: We mark dirty but only rebuild once per cycle
+            spatialGridDirty = true;
         }
         return true;
     }
