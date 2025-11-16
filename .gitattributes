@@ -1,0 +1,36 @@
+# Enforce LF line endings for text files and mark binaries to avoid accidental conversion
+# Default: let Git detect text files, but force eol=lf when text
+* text=auto eol=lf
+
+# Explicitly mark common binaries
+*.jar binary
+*.class binary
+*.zip binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.dylib binary
+*.so binary
+*.exe binary
+
+# Exclude build/artifact directories (treated as binary)
+bin/** binary
+Zoe/** binary
+
+# Force LF for common source and doc formats
+*.sh text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.java text eol=lf
+*.xml text eol=lf
+*.properties text eol=lf
+*.html text eol=lf
+*.js text eol=lf
+*.css text eol=lf
+*.py text eol=lf
+
+# Allow Git to handle other files by content detection
+# End of .gitattributes
+
