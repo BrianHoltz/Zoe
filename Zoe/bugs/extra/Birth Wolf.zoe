@@ -1,0 +1,43 @@
+When {
+   Me.FeelSomething And Not It.IsSameSpecies
+} Do {
+   Bite
+}
+
+When {
+   Me.FeelSomething And Not It.IsAlive
+} Do {
+   Bite
+}
+
+When {
+   Me.BirthLocation Minus Me.Location
+   GreaterThan 200
+} Do {
+   Turn Me.BirthLocation,
+   Move,
+   Move,
+   Move
+}
+When {
+   Me.SeeSomething And Not It.IsSameSpecies
+} Do {
+   Turn,
+   Move
+}
+
+When {
+   {
+      Me.SeeSomething And It.IsSameSpecies
+   } And {
+      It.Size GreaterThan Me.Size
+   }
+} Do {
+   Turn It.Heading,
+   Move
+}
+
+Do {
+   Move,
+   Spawn
+}

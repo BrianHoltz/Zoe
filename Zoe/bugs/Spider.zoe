@@ -1,0 +1,33 @@
+When {
+   Me.FeelSomething And Not It.IsSameSpecies
+} Do {
+   Bite
+}
+
+When {
+   Me.SeeSomething And Not It.IsSameSpecies
+} Do {
+   Turn,
+   Move
+}
+
+When {
+   Me.Cycle,
+   Modulus 3000,
+   Not
+} Do {
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn,
+   Spawn
+}

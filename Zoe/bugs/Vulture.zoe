@@ -1,0 +1,24 @@
+When {
+   Me.SeeSomething And It.IsAlive
+} Do {
+   Turn Me.Away,
+   Move
+}
+
+When {
+   Me.FeelSomething And Not It.IsAlive
+} Do {
+   Bite
+}
+
+When {
+   Me.SeeSomething And Not It.IsAlive
+} Do {
+   Turn Me.Toward,
+   Move
+}
+
+Do {
+   Move,
+   Spawn
+}

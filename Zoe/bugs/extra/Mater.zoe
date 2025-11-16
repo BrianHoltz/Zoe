@@ -1,0 +1,52 @@
+
+When {
+   Me.FeelSomething And Not It.IsAlive
+} Do {
+   Bite
+}
+
+When {
+  Me.FeelSomething And { It.Species Equals 1 }
+} Do {
+   Bite
+}
+
+When {
+   Me.SeeSomething And { It.Species Equals 1 }
+} Do {
+   Turn,
+   Move
+}
+
+When {
+  {
+     Me.FeelSomething And It.IsAlive
+  } And { 
+     { Not It.IsLastMate } And { Not It.IsSameSpecies }
+  }
+} Do {
+   Mate
+}
+
+When {
+  {
+     Me.FeelSomething And It.IsAlive
+  } And { 
+     { Not It.IsLastMate } And { Not It.IsSameSpecies }
+  }
+} Do {
+   Turn,
+   Move
+}
+
+When {
+   Me.SeeSomething And Not It.IsAlive
+} Do {
+   Turn,
+   Move
+}
+
+Do {
+   Spawn,
+   Move
+}

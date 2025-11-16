@@ -1,0 +1,47 @@
+
+When {
+   Me.FeelSomething And It.IsAlive And Not It.IsSameSpecies
+} Do {
+   Bite
+}
+
+When {
+   { Me.FeelSomething And Not It.IsAlive }
+   And
+   { Me.AncestralLocation Minus Me.Location GreaterThan 200 }
+} Do {
+   Bite
+}
+
+When {
+   Me.AncestralLocation Minus Me.Location LessThan 75
+} Do {
+   Barf
+}
+
+When {
+   Me.Strength GreaterThan 20
+} Do {
+   Turn Me.AncestralLocation,
+   Move
+}
+
+When {
+   Me.AncestralLocation Minus Me.Location GreaterThan 400
+} Do {
+   Turn Me.AncestralLocation,
+   Move
+}
+
+When {
+   { Me.SeeSomething And Not It.IsSameSpecies }
+   And
+   { Me.AncestralLocation Minus Me.Location GreaterThan 200 }
+} Do {
+   Turn,
+   Move
+}
+
+Do {
+   Move
+}
