@@ -6,11 +6,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
@@ -34,16 +38,18 @@ public class ZoePanel extends JPanel
 
     public WorldStatusPanel worldStatusPanel;
 
-    private JMenuItem worldPropsMenuItem, loadRandomBugsMenuItem,
-        loadPredefinedBugsMenuItem;
+    private JMenuItem worldOpenMenuItem, worldSaveMenuItem,
+            worldPropsMenuItem, loadRandomBugsMenuItem, loadPredefinedBugsMenuItem;
     private JMenuItem runNextCycleMenuItem, runGoMenuItem, runStopMenuItem, runNextBugMenuItem;
     private JMenuItem cutMenuItem, copyMenuItem, propertiesMenuItem,
         selectMotherMenuItem, selectFatherMenuItem, selectMateMenuItem,
         selectFirstChildMenuItem, selectNextSiblingMenuItem,
         selectNoneMenuItem;
 
+    private JFileChooser worldFileChooser;
+
     public ZoePanel() {
-        super( new BorderLayout() );
+        super(new BorderLayout());
         World.initProperties();
         this.setOpaque(true);
         if (World.SizeWorldToScreen) {
@@ -51,18 +57,20 @@ public class ZoePanel extends JPanel
         } else {
             setPreferredSize( new Dimension( World.Width, World.Height ));
         }
-        
+
         add(createMenuBar(), BorderLayout.NORTH);
-        
+
         worldPanel = new WorldPanel( this );
         add( worldPanel, BorderLayout.CENTER );
         
         worldStatusPanel = new WorldStatusPanel( worldPanel );
         add( worldStatusPanel, BorderLayout.SOUTH );
 
+        worldFileChooser = new JFileChooser();
+
         running = World.AutoStart;
         runTimer = new Timer( World.MinMilliSecsPerTurn, this );
-        runTimer.start(); 
+        runTimer.start();
     }
 
     private JMenuBar createMenuBar() {
@@ -73,26 +81,25 @@ public class ZoePanel extends JPanel
         menu = new JMenu("World");
         menu.setMnemonic(KeyEvent.VK_W);
         menu.getAccessibleContext().setAccessibleDescription(
-            "Load, save, or inspect the World");
+                "Load, save, or inspect the World");
         menuBar.add(menu);
-        /*
+
         menuItem = new JMenuItem("Open", KeyEvent.VK_O);
         menuItem.setAccelerator(KeyStroke.getKeyStroke(
                 KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         menuItem.getAccessibleContext().setAccessibleDescription(
-            "Restore the World");
+                "Restore the World");
+        menuItem.addActionListener(this);
         menu.add(menuItem);
+        worldOpenMenuItem = menuItem;
 
-        menuItem = new JMenuItem("Save", KeyEvent.VK_S);
+        menuItem = new JMenuItem("Save As...", KeyEvent.VK_S);
         menuItem.getAccessibleContext().setAccessibleDescription(
             "Save the World");
+        menuItem.addActionListener(this);
         menu.add(menuItem);
+        worldSaveMenuItem = menuItem;
 
-        menuItem = new JMenuItem("Save As...", KeyEvent.VK_A);
-        menuItem.getAccessibleContext().setAccessibleDescription(
-            "Fork the World");
-        menu.add(menuItem);
-        */
         menuItem = new JMenuItem("Properties...", KeyEvent.VK_P);
         menuItem.getAccessibleContext().setAccessibleDescription(
             "Change the World");
@@ -282,7 +289,7 @@ public class ZoePanel extends JPanel
         worldPanel.selectedBug = (BugLabel)clipboard.getContext();
         worldPanel.selectedBug.select( true );
         worldPanel.selectedBug.repaint();
-        worldStatusPanel.updateStats();
+        worldStatusPanel.updateStats(worldPanel.world);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -290,26 +297,25 @@ public class ZoePanel extends JPanel
         World world = worldPanel.world;
         if (source == runNextCycleMenuItem) {
             running = false;
-            world.nextWorldCycle();
-            worldStatusPanel.updateStats();
+            if (world != null) world.nextWorldCycle();
+            worldStatusPanel.updateStats(world);
         } else if (source == runNextBugMenuItem ) {
             world.nextBugCycle();
-            worldStatusPanel.updateStats();
+            worldStatusPanel.updateStats(world);
         } else if (source == runGoMenuItem ) {
             running = true;
         } else if (source == runStopMenuItem ) {
             running = false;
         } else if (source == runTimer) {
+            if (! running) return;
             if (world == null) {
                 worldPanel.createWorld();
-                worldStatusPanel.updateStats();
-            }
-            if (running && world != null) {
+            } else {
                 world.nextWorldCycle();
-                worldStatusPanel.updateStats();
-                if (world.numLive() == 0) {
-                    running = false;
-                }
+            }
+            worldStatusPanel.updateStats(world);
+            if (world != null && world.numLive() == 0) {
+                running = false;
             }
         } else if (source == propertiesMenuItem) {
             if (worldPanel.selectedBug != null) {
@@ -321,7 +327,7 @@ public class ZoePanel extends JPanel
                 worldPanel.selectedBug.bug.disappear();
                 worldPanel.selectedBug.repaint();
                 worldPanel.selectedBug = null;
-                worldStatusPanel.updateStats();
+                worldStatusPanel.updateStats(world);
             }
         } else if (source == copyMenuItem) {
             if (worldPanel.selectedBug != null) {
@@ -339,11 +345,49 @@ public class ZoePanel extends JPanel
                 System.err.println( "Cannot open Zoe.properties: " + e1.toString());
             }
         } else if (source == loadRandomBugsMenuItem) {
-            world.loadRandomBugs();
-            worldStatusPanel.updateStats();
+            if (world == null) worldPanel.createWorld();
+            worldPanel.world.loadRandomBugs(); // TODO fix NPE
+            worldStatusPanel.updateStats(worldPanel.world);
         } else if (source == loadPredefinedBugsMenuItem) {
-            world.loadFounderBugs();
-            worldStatusPanel.updateStats();
+            if (world == null) worldPanel.createWorld();
+            worldPanel.world.loadFounderBugs();
+            worldStatusPanel.updateStats(worldPanel.world);
+        } else if (source == worldSaveMenuItem) {
+            if (world == null) {
+                alert("No world to save", null);
+                return;
+            }
+            switch (worldFileChooser.showSaveDialog(this)) {
+                case JFileChooser.APPROVE_OPTION:
+                    File file = worldFileChooser.getSelectedFile();
+                    try {
+                        world.save(file);
+                    } catch (IOException ex) {
+                        alert("Could not save " + file.getPath(), ex);
+                    }
+                    break;
+            }
+            Toolkit.getDefaultToolkit().beep();
+        } else if (source == worldOpenMenuItem) {
+            if (world != null) {
+                alert("Restart Zoe to load a new world", null);
+                return;
+            }
+            switch (worldFileChooser.showOpenDialog(this)) {
+                case JFileChooser.APPROVE_OPTION:
+                    File file = worldFileChooser.getSelectedFile();
+                    try {
+                        FileInputStream fileIn = new FileInputStream(file);
+                        ObjectInputStream in = new ObjectInputStream(fileIn);
+                        System.out.println("Loading " + file.getPath());
+                        worldPanel.setWorld( (World) in.readObject());
+                        in.close();
+                        fileIn.close();
+                    } catch (Exception ex) {
+                        alert("Could not load " + file.getPath(), ex);
+                    }
+                    break;
+            }
         } else if (source == selectMotherMenuItem) {
             selectOrBeep( worldPanel.selectedBug == null ? null : worldPanel.selectedBug.bug.mother );
         } else if (source == selectFatherMenuItem) {
@@ -360,9 +404,17 @@ public class ZoePanel extends JPanel
                 worldPanel.selectedBug.repaint();
             }
             worldPanel.selectedBug = null;
-            worldStatusPanel.updateStats();
+            worldStatusPanel.updateStats(world);
         } else {
             System.err.println( e );
         }
+    }
+
+    private void alert(String message, Throwable ex) {
+        Toolkit.getDefaultToolkit().beep();
+        String msg = message;
+        if (ex != null) msg += " because " + ex;
+        JOptionPane.showMessageDialog(null, msg, "Error", JOptionPane.ERROR_MESSAGE);
+        System.err.println(msg);
     }
 }

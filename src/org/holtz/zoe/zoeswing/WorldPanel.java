@@ -39,9 +39,18 @@ public class WorldPanel extends JPanel implements Observer, MouseMotionListener,
         world.addObserver(this);
     }
 
+    public void setWorld(World world) {
+        this.world = world;
+        world.addObserver(this);
+        System.out.println("Loading " + world.bugs.size() + " bugs");
+        for (Bug bug: world.bugs) {
+            add(bug);
+        }
+    }
+
     public void add( Bug bug ) {
         BugLabel bugLabel = new BugLabel( bug, this );
-        bug.setContext( bugLabel );
+        // TODO bug.setContext( bugLabel );
         add( bugLabel, BorderLayout.CENTER );
         bugLabel.addMouseMotionListener(this);
         bugLabel.addMouseListener(this);
@@ -63,7 +72,7 @@ public class WorldPanel extends JPanel implements Observer, MouseMotionListener,
             BugLabel bugLabel = (BugLabel)dragged;
             bugLabel.bug.setXY( e.getX() + bugLabel.getX(),
                     e.getY() + bugLabel.getY() );
-            parent.worldStatusPanel.updateStats();
+            parent.worldStatusPanel.updateStats(world);
         } else {
             System.err.println( "Unexpected Drag Event: " + e.toString() );
         }
@@ -103,7 +112,7 @@ public class WorldPanel extends JPanel implements Observer, MouseMotionListener,
             if (e.getClickCount() == 2) {
                 new BugFrame( bug.bug );
             }
-            parent.worldStatusPanel.updateStats();
+            parent.worldStatusPanel.updateStats(world);
         } else {
             System.err.println( "Unexpected Click Event: " + e );
         }
